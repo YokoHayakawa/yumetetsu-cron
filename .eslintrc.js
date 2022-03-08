@@ -5,6 +5,9 @@ module.exports = {
   },
   'extends': [
     'google',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
   ],
   'parser': '@typescript-eslint/parser',
   'parserOptions': {
@@ -15,6 +18,8 @@ module.exports = {
     '@typescript-eslint',
   ],
   'rules': {
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
     'indent': 'off',
     '@typescript-eslint/indent': [
       'error',
