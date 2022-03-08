@@ -1,10 +1,17 @@
+require('dotenv').config();
+
 import cron from 'node-cron';
-import syncCustomers from './tasks/syncDoKintone/customers';
+import {longtermCustomer} from './tasks/reminders';
+
 
 cron.schedule('* * * * * *', () => {
   console.log('running a task every second');
+  console.log(process.env.KINTONE_BASE_URL);
 });
 
-cron.schedule('* * * * * *', () => {
-  syncCustomers();
-});
+/**
+ * Reminds about longterm customer every day
+ */
+cron.schedule('* * * * * *', longtermCustomer);
+
+
