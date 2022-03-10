@@ -8,7 +8,7 @@ import {longtermCustomer} from './tasks/reminders';
 /**
  * Reminds about longterm customer every day at 9 am
  */
-cron.schedule('* * * * * ', longtermCustomer, {
+cron.schedule('*/5 * * * * * ', longtermCustomer, {
   scheduled: true,
   timezone: 'Asia/Tokyo',
 });
