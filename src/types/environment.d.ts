@@ -19,8 +19,3 @@ declare global {
 
 
 export {};
-
-
-const prev = {pageNum: 1, disabledFlag: false, test: {te: { }}};
-
-Object.values(form).filter((item) => item.pageNum = 1);
