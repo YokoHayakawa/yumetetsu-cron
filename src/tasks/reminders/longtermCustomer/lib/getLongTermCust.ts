@@ -1,11 +1,16 @@
 import {APP_IDS, kintoneClient} from '../../../../api/kintone';
+import {LongTermCustomerType} from '../../../../types/kintone';
 
 
-export default async () => {
+export default async <T extends keyof LongTermCustomerType>() => {
   return kintoneClient.record.getRecords({
     app: APP_IDS['longTermCustomers'],
     totalCount: true,
-    query: '',
+    query:
+    [
+      `${'isSentToSlack' as T} = "0"`,
+      `${'追客可能時期' as T} <= TODAY()`,
+    ].join(' and '),
   })
     .then((res) => ({...res, ok: true}))
     .catch((reason) => {

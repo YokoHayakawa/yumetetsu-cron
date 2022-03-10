@@ -1,4 +1,4 @@
-import {App} from "@slack/bolt"
+import {App} from '@slack/bolt';
 
 export const slackApp = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,

@@ -5,14 +5,12 @@ import cron from 'node-cron';
 import {longtermCustomer} from './tasks/reminders';
 
 
-cron.schedule('* * * * * *', () => {
-  console.log('running a task every second');
-  console.log(process.env.KINTONE_BASE_URL);
-});
-
 /**
- * Reminds about longterm customer every day
+ * Reminds about longterm customer every day at 9 am
  */
-cron.schedule('* * * * * *', longtermCustomer);
+cron.schedule('30 * * * * ', longtermCustomer, {
+  scheduled: true,
+  timezone: 'Asia/Tokyo',
+});
 
 

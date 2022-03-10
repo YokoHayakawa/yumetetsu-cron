@@ -1,3 +1,6 @@
+import {format} from 'date-fns';
+import {LongTermCustomerType} from '../../../types/kintone';
+import {notifyDev} from '../../../utils';
 import getLongTermCust from './lib/getLongTermCust';
 import sendToSlack from './lib/sendToSlack';
 
@@ -6,11 +9,12 @@ import sendToSlack from './lib/sendToSlack';
  */
 export const longtermCustomer = async () => {
   const result = await getLongTermCust();
-
+  // eslint-disable-next-line max-len
+  notifyDev(`Cron job: longtermCustomer ${format(new Date(), 'yyyy-MM-dd HH:mm:ss')}\nRecords: ${result.totalCount}`);
+  // console.log(process.env.NODE_ENV, result.records.length, 'node');
   if (result.ok) {
-    sendToSlack(result.records as unknown as Yume.longtermCust.SavedFields[]);
-    return {ok: 'true'};
+    await sendToSlack(
+      result.records as unknown as LongTermCustomerType[],
+    );
   }
-
-  return {ok: 'false'};
 };

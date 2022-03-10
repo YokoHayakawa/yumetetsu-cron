@@ -3,6 +3,7 @@ declare namespace Yume.longtermCust {
     反響手段: kintone.fieldTypes.SingleLineText;
     市: kintone.fieldTypes.SingleLineText;
     長期理由詳細: kintone.fieldTypes.MultiLineText;
+    isSentToSlack: kintone.fieldTypes.Number;
     追客可能時期: kintone.fieldTypes.Date;
     担当者名: kintone.fieldTypes.SingleLineText;
     メールアドレス: kintone.fieldTypes.SingleLineText;
