@@ -1,3 +1,4 @@
+import {format} from 'date-fns';
 import {slackApp} from '../api/slack';
 
 export const notifyDev = (message: string) => {
@@ -7,3 +8,5 @@ export const notifyDev = (message: string) => {
     text: message,
   });
 };
+
+export const formattedTime = () => format(new Date(), 'yyyy-MM-dd HH-mm-ss');

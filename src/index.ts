@@ -3,6 +3,7 @@ require('dotenv').config();
 
 import cron from 'node-cron';
 import {longtermCustomer} from './tasks/reminders';
+import {formattedTime} from './utils';
 
 
 /**
@@ -14,4 +15,4 @@ cron.schedule('30 9 * * * ', longtermCustomer, {
 });
 
 
-console.log('Cron server is now running.');
+console.log(formattedTime() + ' Cron server is now running.');
