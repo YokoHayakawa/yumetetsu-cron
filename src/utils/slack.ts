@@ -9,4 +9,4 @@ export const notifyDev = (message: string) => {
   });
 };
 
-export const formattedTime = () => format(new Date(), 'yyyy-MM-dd HH-mm-ss');
+export const formattedTime = () => format(new Date(), 'yyyy-MM-dd HH:mm:ss');
