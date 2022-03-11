@@ -2,6 +2,7 @@
 require('dotenv').config();
 
 import cron from 'node-cron';
+import {appName} from './config';
 import {longtermCustomer} from './tasks/reminders';
 import {formattedTime, notifyDev} from './utils';
 
@@ -20,4 +21,4 @@ cron.schedule('30 9 * * * ', longtermCustomer, {
 
 // cron.schedule('*/5 * * * * *', ()=> notifyDev(formattedTime() + ': Alive'));
 
-notifyDev(`${formattedTime()} Cron server started.`);
+notifyDev(`${formattedTime()} ${appName} started.`);
