@@ -14,3 +14,4 @@ cron.schedule('30 9 * * * ', longtermCustomer, {
 });
 
 
+console.log('Cron server is now running.');
