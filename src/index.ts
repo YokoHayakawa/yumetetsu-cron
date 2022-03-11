@@ -14,5 +14,10 @@ cron.schedule('30 9 * * * ', longtermCustomer, {
   timezone: 'Asia/Tokyo',
 });
 
+/**
+ * Still alive log.
+ */
+
+cron.schedule('*/5 * * * * *', ()=> console.log(formattedTime() + ': Alive'));
 
 console.log(formattedTime() + ' Cron server is now running.');
