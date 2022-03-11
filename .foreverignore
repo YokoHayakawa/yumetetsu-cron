@@ -6,3 +6,4 @@ htdocs/*
 *.gif
 *.jpg
 *.html
+build/*
