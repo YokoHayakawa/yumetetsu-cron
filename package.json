@@ -8,7 +8,7 @@
     "start:dev": "cross-env NODE_ENV=dev nodemon",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
-    "forever": "forever -v -c npm run start",
+    "start:forever": "forever -w -v -c 'npm start' ./",
     "dtsgen:ltcust": "kintone-dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 189 --namespace Yume.longtermCust -o src/types/longtermCust.d.ts"
   },
   "keywords": [],
