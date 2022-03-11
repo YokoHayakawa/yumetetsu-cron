@@ -20,4 +20,4 @@ cron.schedule('30 9 * * * ', longtermCustomer, {
 
 // cron.schedule('*/5 * * * * *', ()=> notifyDev(formattedTime() + ': Alive'));
 
-console.log(formattedTime() + ' Cron server is now running.');
+notifyDev(`${formattedTime()} Cron server started.`);
