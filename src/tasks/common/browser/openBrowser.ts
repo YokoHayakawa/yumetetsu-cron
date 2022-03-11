@@ -1,7 +1,6 @@
 import puppeteer, {Browser} from 'puppeteer';
 import {logger} from '../../../utils';
-import {optionsTest} from './config';
-import {browserURL} from './config';
+import {optionsTest, browserURL} from './config';
 
 const isTest = process.env.NODE_ENV === 'test';
 
@@ -30,6 +29,6 @@ export const openBrowserPage = async () => {
  */
 export const openMockBrowserPage = async () => {
   logger.info('Opening mock browser page.');
-  const browser = await puppeteer.connect({browserURL});
+  const browser = await puppeteer.connect({browserURL, defaultViewport: null});
   return getPage(browser);
 };

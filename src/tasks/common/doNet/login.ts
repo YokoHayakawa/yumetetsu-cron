@@ -1,8 +1,7 @@
 import {Page} from 'puppeteer';
 import {logger} from '../../../utils';
 import {openBrowserPage} from '../browser/openBrowser';
-import {URLs} from './config';
-import {selectors} from './config';
+import {URLs, selectors} from './config';
 
 export const login = async (currPage?: Page ) => {
   logger.info('Started login to doNetwork. ');

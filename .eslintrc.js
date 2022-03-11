@@ -6,6 +6,8 @@ module.exports = {
   'extends': [
     'google',
     'eslint:recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
   ],
@@ -16,6 +18,7 @@ module.exports = {
   },
   'plugins': [
     '@typescript-eslint',
+    'import',
 
   ],
   'rules': {
