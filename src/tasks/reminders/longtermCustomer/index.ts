@@ -1,4 +1,4 @@
-import {format} from 'date-fns';
+
 import {LongTermCustomerType} from '../../../types/kintone';
 import {formattedTime, notifyDev} from '../../../utils';
 import getLongTermCust from './lib/getLongTermCust';

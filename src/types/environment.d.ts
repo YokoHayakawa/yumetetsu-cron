@@ -13,6 +13,11 @@ declare global {
       SLACK_CHANNEL_ID_NAKAGAWA: string,
       SLACK_CHANNEL_ID_TEST: string,
       SLACK_CHANNEL_ID_DEV: string,
+
+      DO_NETWORK_USER: string,
+      DO_NETWORK_PASSWORD: string,
+
+      NODE_ENV: string
     }
   }
 }
