@@ -8,4 +8,9 @@ export const selectors = {
   store: '#fc_shop_id',
   login: '.btn_login',
   loggedInEl: '.sidebar-customer',
+  custNav: '.sidebar-customer',
+  shopDD: '#m_customer_filters_fc_shop_id',
+  btnSearch: '#btn_search',
 };
+
+export const downloadLimit = 3000;

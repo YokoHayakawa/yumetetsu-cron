@@ -4,7 +4,6 @@ module.exports = {
     'node': true,
   },
   'extends': [
-    'plugin:jsdoc/recommended',
     'google',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -17,7 +16,7 @@ module.exports = {
   },
   'plugins': [
     '@typescript-eslint',
-    'jsdoc',
+
   ],
   'rules': {
     'no-unused-vars': 'off',
