@@ -130,4 +130,4 @@ dist
 # Additional
 build
 cli-kintone*
-*.snap
+*snap
