@@ -1,5 +1,5 @@
 import {APP_IDS} from '.';
-import {uploadAll} from './upload';
+import {uploadAll, uploadAllByCLI} from './upload';
 import {faker} from '@faker-js/faker';
 
 const data: Partial<CustomersType>[] = [
@@ -16,6 +16,14 @@ describe('All Records', ()=>{
     const result = await uploadAll(APP_IDS['customers'], data )
       .catch((err) => console.log(err));
     console.log(result);
+    expect(result).toMatchSnapshot();
+  });
+});
+
+describe('CLI', ()=>{
+  it('is sucessful.', async ()=>{
+    const result = await uploadAllByCLI();
+
     expect(result).toMatchSnapshot();
   });
 });

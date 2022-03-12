@@ -17,7 +17,8 @@ declare global {
       DO_NETWORK_USER: string,
       DO_NETWORK_PASSWORD: string,
 
-      NODE_ENV: string
+      NODE_ENV: string,
+      CLI_KINTONE_PATH: string
     }
   }
 }

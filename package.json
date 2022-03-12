@@ -12,7 +12,6 @@
     "start:forever": "npm run build && forever start -o yumetetsu-cron-o.log -a -w --uid 'yumetetsu-cron' --minUptime 1000 --spinSleepTime 1000  build/index.js",
     "dtsgen:ltcust": "kintone-dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 189 --namespace Yume.longtermCust -o src/types/longtermCust.d.ts",
     "dtsgen:cust": "kintone-dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 84 --namespace Yume.customer -o src/types/customer.d.ts"
-
   },
   "keywords": [],
   "author": "",
@@ -48,6 +47,7 @@
     "cross-env": "^7.0.3",
     "date-fns": "^2.28.0",
     "dotenv": "^16.0.0",
+    "iconv-lite": "^0.6.3",
     "node-cron": "^3.0.0",
     "puppeteer": "^13.5.0",
     "regenerator-runtime": "^0.13.9",

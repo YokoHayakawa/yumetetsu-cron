@@ -10,3 +10,43 @@ Object {
   ],
 }
 `;
+
+exports[`CLI is sucessful. 1`] = `
+"error: Usage:
+  D:\\\\Git\\\\yumetetsu-cron\\\\cli-kintone.exe [OPTIONS]
+
+Application Options:
+      --import   Import data from stdin. If \\"-f\\" is also specified, data is
+                 imported from the file instead
+      --export   Export kintone data to stdout
+  -d=            Domain name (specify the FQDN)
+  -a=            App ID (default: 0)
+  -u=            User's log in name
+  -p=            User's password
+  -t=            API token
+  -g=            Guest Space ID (default: 0)
+  -o=            Output format. Specify either 'json' or 'csv' (default: csv)
+  -e=            Character encoding (default: utf-8).
+                 Only support the encoding below both field code and data
+                 itself:
+                 'utf-8', 'utf-16', 'utf-16be-with-signature',
+                 'utf-16le-with-signature', 'sjis' or 'euc-jp', 'gbk' or 'big5'
+                 (default: utf-8)
+  -U=            Basic authentication user name
+  -P=            Basic authentication password
+  -q=            Query string
+  -c=            Fields to export (comma separated). Specify the field code name
+  -f=            Input file path
+  -b=            Attachment file directory
+  -D             Delete records before insert. You can specify the deleting
+                 record condition by option \\"-q\\"
+  -l=            Position index of data in the input file (default: 1)
+  -v, --version  Version of cli-kintone
+
+Help Options:
+  -h, --help     Show this help message
+
+
+Try 'D:\\\\Git\\\\yumetetsu-cron\\\\cli-kintone.exe --help' for more information.
+"
+`;
