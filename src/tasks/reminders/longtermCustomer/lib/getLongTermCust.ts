@@ -1,5 +1,4 @@
 import {APP_IDS, kintoneClient} from '../../../../api/kintone';
-import {LongTermCustomerType} from '../../../../types/kintone';
 
 
 export default async <T extends keyof LongTermCustomerType>() => {

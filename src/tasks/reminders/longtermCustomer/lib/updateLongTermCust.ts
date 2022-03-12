@@ -1,5 +1,5 @@
 import {APP_IDS, kintoneClient} from '../../../../api/kintone';
-import {LongTermCustomerType} from '../../../../types/kintone';
+
 
 export const markSuccess = (recId: string) =>{
   kintoneClient.record.updateRecord({

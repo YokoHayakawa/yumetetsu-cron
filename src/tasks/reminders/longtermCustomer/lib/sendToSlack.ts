@@ -1,7 +1,6 @@
 import {Block, KnownBlock} from '@slack/bolt';
 import {slackApp} from '../../../../api/slack';
 import {globalInterval} from '../../../../config';
-import {LongTermCustomerType} from '../../../../types/kintone';
 import {resolveChannel} from '../helpers';
 import {markSuccess} from './updateLongTermCust';
 
