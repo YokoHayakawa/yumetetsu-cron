@@ -1,12 +1,13 @@
 import {Page, ElementHandle} from 'puppeteer';
-import {selectors} from '../../../config';
-import {scrollToEl} from '../../../../browser/helpers';
+import {selectors} from '../../config';
+import {scrollToEl} from '../../../browser/helpers/scrollToEl';
 import {
   clickWithReload,
-} from '../../../../browser/helpers/actionsWithReload';
-import {logger} from '../../../../../../utils';
+} from '../../../browser/helpers/actionsWithReload';
+import {logger} from '../../../../../utils';
+import {getResultCount} from './content';
 
-export const getResultCount = async (page: Page) => {
+export const clickSearch = async (page: Page) => {
   await page.waitForSelector(selectors.btnSearch, {visible: true});
   logger.info(`Found the search button `);
 
@@ -23,12 +24,7 @@ export const getResultCount = async (page: Page) => {
       selectors.resultNothing, {timeout: 4000, visible: true}).catch(),
   ]);
 
-  const count = await page.$eval(
-    selectors.resultCount +
-    ' span:first-child', (e) => {
-      return (e as unknown as HTMLSpanElement).innerText;
-    }).catch(() => 0);
-  logger.info(`Search result has ${count} records `);
+  const count = getResultCount(page);
 
 
   return count;

@@ -1,6 +1,6 @@
-import {openMockBrowserPage} from '../../../../browser';
-import {browserTimeOut} from '../../../../browser/config';
-import {downloadPerStore} from './stores';
+import {openMockBrowserPage} from '../../../browser';
+import {browserTimeOut} from '../../../browser/config';
+import {downloadPerStore} from './downloadPerStore';
 
 
 describe('Stores', () => {

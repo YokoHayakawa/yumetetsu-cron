@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Content retrieved 1`] = `
+Array [
+  Object {
+    "text": "ハウスドゥ！豊田中央店",
+    "value": "157",
+  },
+  Object {
+    "text": "ハウスドゥ！豊川中央店",
+    "value": "270",
+  },
+  Object {
+    "text": "ハウスドゥ  豊橋向山",
+    "value": "403",
+  },
+  Object {
+    "text": "ハウスドゥ  千種大久手",
+    "value": "416",
+  },
+  Object {
+    "text": "ハウスドゥ  高浜中央",
+    "value": "488",
+  },
+  Object {
+    "text": "ハウスドゥ！豊田美里店　仮称",
+    "value": "575",
+  },
+  Object {
+    "text": "ハウスドゥ！豊田大林店",
+    "value": "578",
+  },
+  Object {
+    "text": "ハウスドゥ！豊川八幡店",
+    "value": "808",
+  },
+  Object {
+    "text": "ハウスドゥ  家・不動産買取専門店  豊橋向山",
+    "value": "897",
+  },
+  Object {
+    "text": "ハウスドゥ  大垣",
+    "value": "942",
+  },
+  Object {
+    "text": "ハウスドゥ！中川八熊店",
+    "value": "991",
+  },
+  Object {
+    "text": "ハウスドゥ！蒲郡店",
+    "value": "1155",
+  },
+  Object {
+    "text": "ハウスドゥ！日進店",
+    "value": "1264",
+  },
+  Object {
+    "text": "ハウスドゥ！豊橋Ａ店　仮称",
+    "value": "1305",
+  },
+  Object {
+    "text": "ハウスドゥ  豊橋藤沢",
+    "value": "1343",
+  },
+]
+`;
+
+exports[`Content retrieved 2`] = `
+Array [
+  Object {
+    "text": "選択してください",
+    "value": "",
+  },
+  Object {
+    "text": "未設定",
+    "value": "null",
+  },
+  Object {
+    "text": "神谷昌孝",
+    "value": "1556",
+  },
+  Object {
+    "text": "メール",
+    "value": "1814",
+  },
+  Object {
+    "text": "神谷　昌孝",
+    "value": "5647",
+  },
+  Object {
+    "text": "山豊工建",
+    "value": "9381",
+  },
+  Object {
+    "text": "國安　真帆",
+    "value": "9513",
+  },
+  Object {
+    "text": "石川　圭子",
+    "value": "12782",
+  },
+  Object {
+    "text": "小出　絵美",
+    "value": "13004",
+  },
+  Object {
+    "text": "水野　一徳",
+    "value": "13686",
+  },
+  Object {
+    "text": "吉村　真優",
+    "value": "14384",
+  },
+  Object {
+    "text": "影島　湧人",
+    "value": "16017",
+  },
+  Object {
+    "text": "水谷　共輔",
+    "value": "16146",
+  },
+  Object {
+    "text": "中邨 宏映",
+    "value": "16681",
+  },
+  Object {
+    "text": "長木 未樹",
+    "value": "16695",
+  },
+  Object {
+    "text": "物件登録専用③",
+    "value": "16696",
+  },
+  Object {
+    "text": "立川　チアゴ",
+    "value": "16890",
+  },
+  Object {
+    "text": "RPAテスト",
+    "value": "16897",
+  },
+  Object {
+    "text": "嘉代　大河",
+    "value": "17443",
+  },
+  Object {
+    "text": "西濱　春輝",
+    "value": "18480",
+  },
+  Object {
+    "text": "平賀　大翔",
+    "value": "18481",
+  },
+  Object {
+    "text": "齊藤	美有",
+    "value": "20857",
+  },
+  Object {
+    "text": "加地	由樹子",
+    "value": "20858",
+  },
+  Object {
+    "text": "本田　勇大",
+    "value": "20923",
+  },
+  Object {
+    "text": "品川　博文",
+    "value": "20924",
+  },
+]
+`;

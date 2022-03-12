@@ -11,7 +11,8 @@ export const selectors = {
 
   // Customer Page
   custNav: '.sidebar-customer',
-  shopDD: '#m_customer_filters_fc_shop_id',
+  ddStores: '#m_customer_filters_fc_shop_id',
+  ddAgents: '.clone_user_id',
   btnSearch: '#btn_search',
   resultCount: '#kensakukekka',
   resultNothing: '.sf_admin_list > .big',

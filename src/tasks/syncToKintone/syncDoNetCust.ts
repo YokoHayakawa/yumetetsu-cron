@@ -1,9 +1,9 @@
 import {openBrowserPage} from '../common/browser';
+import {login} from '../common/doNet/login';
+import {navigateToCustPage} from '../common/doNet/pages/customer/navigate';
 import {
-  login,
   downloadPerStore,
-  navigateToCustPage,
-} from '../common/doNet';
+} from '../common/doNet/pages/customer/downloadPerStore';
 
 
 export const syncDoNetCust = async () => {

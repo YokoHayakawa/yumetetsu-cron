@@ -1,7 +1,7 @@
-// import {selectors} from '../../../../config';
+
 import {Page} from 'puppeteer';
 import path from 'path';
-import {logger} from '../../../../../../utils';
+import {logger} from '../../../../../utils';
 
 
 /**

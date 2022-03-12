@@ -18,7 +18,6 @@ cron.schedule('30 9 * * * ', longtermCustomer, {
 /**
  * Still alive log.
  */
-
 // cron.schedule('*/5 * * * * *', ()=> notifyDev(formattedTime() + ': Alive'));
 
 notifyDev(`${formattedTime()} ${appName} started.`);
