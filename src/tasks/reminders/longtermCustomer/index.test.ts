@@ -3,6 +3,10 @@ import {longtermCustomer} from '.';
 
 describe('Longterm Customer Reminder', ()=>{
   it('is successful.', async ()=>{
-    expect(await longtermCustomer()).toHaveProperty('ok');
+    const result = await longtermCustomer();
+
+    console.log(result);
+
+    expect(result).toHaveProperty('ok');
   });
 });

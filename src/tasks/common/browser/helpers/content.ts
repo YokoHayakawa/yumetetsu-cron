@@ -14,5 +14,8 @@ export const getSelectOptions = async (page : Page, selector: string) => {
     },
   );
 
-  return allOptions.filter((opt) => opt.text?.length);
+  return allOptions
+    .filter(({text}) => {
+      return text?.length && !text?.includes('選択');
+    });
 };

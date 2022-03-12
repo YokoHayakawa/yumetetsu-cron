@@ -17,3 +17,11 @@ Mac
 
 - /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --no-first-run --no-default-browser-check --user-data-dir=$(mktemp -d -t 'chrome-remote_data_dir')
 Run a dev version of chrome where puppeteer can connect.
+
+- https://github.com/kintone-labs/cli-kintone/blob/master/docs/BuildForMacLinux.md
+Build for Mac/linux
+
+
+I added xserver path
+- GOBIN
+Path to GO

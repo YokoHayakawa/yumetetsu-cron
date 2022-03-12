@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`All Records are succesfully uploaded. 1`] = `
+Object {
+  "records": Array [
+    Object {
+      "id": "39433",
+      "revision": "1",
+    },
+  ],
+}
+`;

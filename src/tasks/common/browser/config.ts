@@ -4,4 +4,4 @@ export const optionsTest = () => ({
   headless: false,
   slowMo: 50,
 });
-export const browserTimeOut = 30000;
+export const browserTimeOut = 1000 * 60 * 5;

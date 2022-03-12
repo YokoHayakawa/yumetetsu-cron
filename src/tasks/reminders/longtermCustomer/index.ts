@@ -1,5 +1,3 @@
-
-import {LongTermCustomerType} from '../../../types/kintone';
 import {formattedTime, notifyDev} from '../../../utils';
 import getLongTermCust from './lib/getLongTermCust';
 import sendToSlack from './lib/sendToSlack';
@@ -17,4 +15,6 @@ export const longtermCustomer = async () => {
       result.records as unknown as LongTermCustomerType[],
     );
   }
+
+  return result;
 };

@@ -10,13 +10,16 @@
     "start": "npm run build && node build/index.js",
     "generate-barrels": "barrelsby --delete",
     "start:forever": "npm run build && forever start -o yumetetsu-cron-o.log -a -w --uid 'yumetetsu-cron' --minUptime 1000 --spinSleepTime 1000  build/index.js",
-    "dtsgen:ltcust": "kintone-dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 189 --namespace Yume.longtermCust -o src/types/longtermCust.d.ts"
+    "dtsgen:ltcust": "kintone-dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 189 --namespace Yume.longtermCust -o src/types/longtermCust.d.ts",
+    "dtsgen:cust": "kintone-dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 84 --namespace Yume.customer -o src/types/customer.d.ts"
+
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
+    "@faker-js/faker": "^6.0.0-beta.0",
     "@kintone/dts-gen": "^5.0.21",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.21",
