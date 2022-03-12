@@ -1,5 +1,5 @@
-import {openMockBrowserPage} from '../../../../../browser';
-import getResultCount from './getResultCount';
+import {openMockBrowserPage} from '../../../../browser';
+import {getResultCount} from './getResultCount';
 
 describe('Result Count', ()=>{
   it('is counted.', async () => {

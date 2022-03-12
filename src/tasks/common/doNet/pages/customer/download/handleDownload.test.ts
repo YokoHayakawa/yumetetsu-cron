@@ -1,4 +1,4 @@
-import {openMockBrowserPage} from '../../../../../browser';
+import {openMockBrowserPage} from '../../../../browser';
 import {handleDownload} from './handleDownload';
 
 describe('Download', ()=> {

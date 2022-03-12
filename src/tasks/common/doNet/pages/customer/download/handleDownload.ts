@@ -1,7 +1,7 @@
 // import {selectors} from '../../../../config';
 import {Page} from 'puppeteer';
 import path from 'path';
-import {logger} from '../../../../../../../utils';
+import {logger} from '../../../../../../utils';
 
 
 /**
@@ -27,6 +27,7 @@ export const handleDownload = async (page: Page) => {
         return text;
       });
   });
+
 
   logger.info(
     `Finished file download with ${result.split(/\r\n|\r|\n/).length} lines. `);

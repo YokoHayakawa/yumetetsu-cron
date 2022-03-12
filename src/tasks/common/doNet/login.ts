@@ -1,15 +1,12 @@
 import {Page} from 'puppeteer';
-import {logger} from '../../../utils';
-import {openBrowserPage} from '../browser/openBrowser';
+import {logger} from '../../../utils/logger';
+
 import {URLs, selectors} from './config';
 
 export const login = async (page: Page ) => {
   logger.info('Started login to doNetwork. ');
-  // const page = (currPage || await openBrowserPage());
 
-  console.log(process.env.DO_NETWORK_USER, 'user');
   await page.goto(URLs['login'], {waitUntil: 'domcontentloaded'});
-
   await page.waitForSelector(selectors.user);
   await page.select(selectors.store, '157');
   await page.type(selectors.user, process.env.DO_NETWORK_USER);
