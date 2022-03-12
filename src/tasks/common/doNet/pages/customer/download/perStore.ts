@@ -1,12 +1,7 @@
 import {Page} from 'puppeteer';
 import {logger} from '../../../../../../utils';
-
-
 import {selectors} from '../../../config';
-
-import {startDownload} from './helpers/startDownload';
-// import {startDownload} from './helpers/startDownload';
-
+import {startDownload} from './lib/startDownload';
 
 export const getStores = async (page : Page) => {
   console.log('aruss?', selectors.shopDD);

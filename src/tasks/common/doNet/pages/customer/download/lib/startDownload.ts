@@ -22,7 +22,7 @@ export const startDownload = async (page: Page) => {
   logger.info(`Found ${resultCount} `);
 
   if (resultCount > 0 && resultCount <= downloadLimit) {
-    console.log(await handleDownload(page));
+    await handleDownload(page);
   }
 
   logger.info(`Done downloading store`);

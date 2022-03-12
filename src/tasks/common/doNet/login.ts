@@ -3,9 +3,9 @@ import {logger} from '../../../utils';
 import {openBrowserPage} from '../browser/openBrowser';
 import {URLs, selectors} from './config';
 
-export const login = async (currPage?: Page ) => {
+export const login = async (page: Page ) => {
   logger.info('Started login to doNetwork. ');
-  const page = (currPage || await openBrowserPage());
+  // const page = (currPage || await openBrowserPage());
 
   console.log(process.env.DO_NETWORK_USER, 'user');
   await page.goto(URLs['login'], {waitUntil: 'domcontentloaded'});
