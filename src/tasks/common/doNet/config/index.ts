@@ -16,6 +16,7 @@ export const selectors = {
   resultCount: '#kensakukekka',
   resultNothing: '.sf_admin_list > .big',
   resultClear: '.btn_excel.search',
+  btnSave: '#btn_csv',
 };
 
 export const downloadLimit = 3000;
