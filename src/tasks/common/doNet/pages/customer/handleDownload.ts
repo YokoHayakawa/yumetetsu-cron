@@ -6,6 +6,7 @@ import {custDlDir} from '../../config';
 import path from 'path';
 import {format} from 'date-fns';
 import {APP_IDS} from '../../../../../api/kintone';
+import iconv from 'iconv-lite';
 
 
 /**
@@ -44,7 +45,7 @@ export const handleDownload = async (page: Page) => {
       dumpPath,
       format(new Date(), `${APP_IDS.customers}-yyyyMMdd-HHmmss`),
     ) + '.csv',
-    result,
+    iconv.encode(result, 'shift_jis'),
 
   );
   return result;

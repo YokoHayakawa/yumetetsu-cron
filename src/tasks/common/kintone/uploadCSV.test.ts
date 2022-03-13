@@ -1,7 +1,7 @@
 import {APP_IDS} from '../../../api/kintone';
 import {openMockBrowserPage} from '../browser';
 import {browserTimeOut} from '../browser/config';
-import {attachFile, selectEncoding, uploadCSV} from './uploadCSV';
+import {attachFile, uploadCSV} from './uploadCSV';
 
 describe('CSV', ()=>{
   it('is attached', async ()=> {
@@ -10,8 +10,10 @@ describe('CSV', ()=>{
 
     page.browser().disconnect();
   });
+});
 
-  it('is uploaded', async ()=>{
+describe('Upload', ()=>{
+  it('is done.', async ()=>{
     const page = await uploadCSV(APP_IDS.customers, '顧客番号');
     await page.waitForTimeout(5000);
 
@@ -19,11 +21,3 @@ describe('CSV', ()=>{
   }, browserTimeOut);
 });
 
-describe('Encoding', ()=>{
-  it('has been selected', async ()=> {
-    const page = await openMockBrowserPage();
-    await selectEncoding(page);
-
-    page.browser().disconnect();
-  });
-});
