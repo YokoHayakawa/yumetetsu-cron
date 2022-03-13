@@ -8,7 +8,7 @@ import {downloadPerAgent} from './downloadPerAgent';
 
 
 export const downloadPerStore = async (
-  page: Page, handleUpload?: UploadFn,
+  page: Page,
 ) => {
   logger.info(`Started downloading per store`);
   const stores = await getOptionsStore(page);

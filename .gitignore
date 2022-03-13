@@ -131,3 +131,4 @@ dist
 build
 cli-kintone*
 **.snap
+*.csv

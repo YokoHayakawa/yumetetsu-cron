@@ -29,6 +29,9 @@ export const openBrowserPage = async () => {
  */
 export const openMockBrowserPage = async () => {
   logger.info('Opening mock browser page.');
-  const browser = await puppeteer.connect({browserURL, defaultViewport: null});
+  const browser = await puppeteer.connect({
+    browserURL: 'http://127.0.0.1:9222',
+    // browserWSEndpoint: 'ws://127.0.0.1:9222/devtools/browser/87ef8a6a-0405-4c36-821f-309ad007f026',
+    defaultViewport: null});
   return getPage(browser);
 };

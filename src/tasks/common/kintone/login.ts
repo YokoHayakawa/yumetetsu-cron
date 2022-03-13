@@ -1,7 +1,7 @@
 import {Page} from 'puppeteer';
 import {logger} from '../../../utils';
 import {clear} from '../../../utils/field';
-import {URLs} from './config';
+
 
 const selectors = {
   user: '[name="username"]',
@@ -23,7 +23,7 @@ export const login = async (page: Page) => {
   /*  logger.info('Navigating to kintone login.');
   await page.goto(url); */
 
-  logger.info('Typing credentials');
+  logger.info('Trying to login.');
   await clear(page, selectors.user);
   await page.type(selectors.user, username);
 

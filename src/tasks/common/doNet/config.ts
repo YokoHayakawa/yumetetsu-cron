@@ -1,3 +1,5 @@
+import rootPath from 'app-root-path';
+
 export const URLs = {
   login: 'https://manage.do-network.com/login/134',
 };
@@ -21,3 +23,5 @@ export const selectors = {
 };
 
 export const downloadLimit = 3000;
+
+export const custDlDir = rootPath.resolve('/dump/customers');
