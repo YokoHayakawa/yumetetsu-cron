@@ -13,6 +13,7 @@ export const uploadCSV = async (appId: string) => {
   await page.goto(uploadUrl);
 
   await Promise.race([
+
     await login(page),
     await page.waitForSelector(selectors.btnUpload),
   ]);
