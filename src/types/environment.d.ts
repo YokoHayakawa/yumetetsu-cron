@@ -1,8 +1,11 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
+      KINTONE_BASE_URL: string,
       KINTONE_CUSTOMERS_TOKEN: string,
       KINTONE_LONGTERM_CUSTOMERS_TOKEN: string,
+      KINTONE_USER: string,
+      KINTONE_PASS: string,
 
       SLACK_SIGNING_SECRET: string,
       SLACK_BOT_TOKEN: string,

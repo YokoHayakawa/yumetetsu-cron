@@ -13,6 +13,12 @@ export const uploadAll = (appId: string, records : Records) => {
 };
 
 
+/**
+ * Upload data using kintone cli.
+ * Still thinking of fully implementing this as there are still constraints
+ * such as upserting data.
+ *
+ */
 export const uploadAllByCLI = async () => {
   const path = process.env.CLI_KINTONE_PATH;
   try {

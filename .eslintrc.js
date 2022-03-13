@@ -19,7 +19,6 @@ module.exports = {
   'plugins': [
     '@typescript-eslint',
     'import',
-
   ],
   'rules': {
     'no-unused-vars': 'off',
@@ -29,5 +28,11 @@ module.exports = {
       'error',
       2,
     ],
+    'valid-jsdoc': ['error', {
+      'requireParamType': false,
+      'requireParamDescription': false,
+      'requireReturn': false,
+    }],
+
   },
 };
