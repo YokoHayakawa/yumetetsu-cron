@@ -6,7 +6,10 @@ import {clickSearch} from './clickSearch';
 import {handleDownload} from './handleDownload';
 import {downloadPerAgent} from './downloadPerAgent';
 
-export const downloadPerStore = async (page: Page) => {
+
+export const downloadPerStore = async (
+  page: Page, handleUpload?: UploadFn,
+) => {
   logger.info(`Started downloading per store`);
   const stores = await getOptionsStore(page);
 

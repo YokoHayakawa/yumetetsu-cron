@@ -10,17 +10,25 @@ const selectors = {
 };
 
 export const login = async (page: Page) => {
+  const username = process.env.KINTONE_USER;
+  const password = process.env.KINTONE_PASS;
+
+  if (!username || !password) {
+    logger.error('Please set environment\'s username and password.');
+    return;
+  }
+
   await page.waitForSelector(selectors.btnLogin);
 
-  logger.info('Navigating to kintone login.');
-  await page.goto(URLs.login);
+  /*  logger.info('Navigating to kintone login.');
+  await page.goto(url); */
 
   logger.info('Typing credentials');
   await clear(page, selectors.user);
-  await page.type(selectors.user, process.env.KINTONE_USER);
+  await page.type(selectors.user, username);
 
   await clear(page, selectors.pass);
-  await page.type(selectors.pass, process.env.KINTONE_PASS);
+  await page.type(selectors.pass, password);
 
   logger.info('Pressing enter to confirm login.');
   await page.keyboard.type('\n');

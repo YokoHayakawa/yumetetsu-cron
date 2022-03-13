@@ -7,7 +7,8 @@ import {logger} from '../../../../../utils';
 /**
  * Programatically download csv data into stream.
  *
- * @param {Page} page
+ * @param page
+ * @param handleUpload
  * @return {string} data
  */
 export const handleDownload = async (page: Page) => {
@@ -27,7 +28,6 @@ export const handleDownload = async (page: Page) => {
         return text;
       });
   });
-
 
   logger.info(
     `Finished file download with ${result.split(/\r\n|\r|\n/).length} lines. `);
