@@ -12,7 +12,6 @@ export const login = async (page: Page ) => {
   await page.type(selectors.user, process.env.DO_NETWORK_USER);
   await page.type(selectors.pass, process.env.DO_NETWORK_PASSWORD);
   await page.click(selectors.login);
-  await page.waitForSelector(selectors.loggedInEl);
 
   return page;
 };

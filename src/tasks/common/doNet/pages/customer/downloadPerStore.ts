@@ -1,10 +1,11 @@
 import {Page} from 'puppeteer';
 import {logger} from '../../../../../utils';
-import {downloadLimit, selectors} from '../../config';
+import {downloadLimit} from '../../config';
 import {getOptionsStore} from './content';
 import {clickSearch} from './clickSearch';
 import {handleDownload} from './handleDownload';
 import {downloadPerAgent} from './downloadPerAgent';
+import selectors from './selectors';
 
 
 export const downloadPerStore = async (

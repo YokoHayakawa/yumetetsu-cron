@@ -1,5 +1,6 @@
 import {Page} from 'puppeteer';
-import {selectors} from '../../config';
+import {logger} from '../../../../utils';
+import {homeSelectors} from '../config';
 
 
 /* Must be on homepage after loging in. */
@@ -9,9 +10,11 @@ import {selectors} from '../../config';
   return page;
 }; */
 
+
 export const navigateToCustPage = async (page: Page) => {
-  await page.waitForSelector(selectors.loggedInEl);
-  await page.click(selectors.custNav);
+  logger.info('Navigating to customer page.');
+  await page.waitForSelector(homeSelectors.custNav);
+  await page.click(homeSelectors.custNav);
   return page;
 };
 

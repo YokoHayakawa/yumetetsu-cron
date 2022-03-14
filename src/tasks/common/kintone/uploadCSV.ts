@@ -38,14 +38,19 @@ export const attachFile = async (page: Page, fileName: string) => {
   const inputUploadHandle = await page.$(selectors.inputFile);
 
   await inputUploadHandle?.uploadFile(filePath);
+
+  logger.info(`Attempting to click yes.`);
+  await page.waitForSelector(selectors.headerYes, {visible: true});
   await page.click(selectors.headerYes);
+  logger.info(`Succesfully to clicked yes.`);
 };
 
 export const handleUpload = async (
   page: Page, keyField: string,
 ) => {
   logger.info(`Toggling key ${keyField}`);
-  await page.waitForSelector(`input[id^='${keyField}']`);
+  await page.waitForNetworkIdle();
+  await page.waitForSelector(`input[id^='${keyField}']`, {visible: true});
   await page.click(`input[id^='${keyField}']`);
 
   logger.info(`Start upload.`);
@@ -57,12 +62,15 @@ export const handleUpload = async (
 /**
  * Uploads all processed csv.
  *
+ * @param {Page} page
  * @param {string} appId
  * @param {string} [keyField='レコード番号']
  * @return {*} page
  */
-export const uploadCSV = async (appId: string, keyField = 'レコード番号') => {
-  const page = await openBrowserPage();
+export const uploadCSV = async (
+  page: Page, appId: string, keyField = 'レコード番号',
+) => {
+  // const page = await openBrowserPage();
 
   logger.info(`Starting upload to kintone for ${appId}.`);
   const files = getCSVFiles(dumpPath, appId);
