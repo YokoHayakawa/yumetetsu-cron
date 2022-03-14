@@ -17,6 +17,7 @@ const watcher = chokidar.watch(dumpPath, {
 
 export const syncDoNetCust = async () => {
   try {
+    notifyDev('Running sync customer. ');
     process.setMaxListeners(20);
     const page = await openBrowserPage();
     const kintoneBrowser = await launchBrowser();
@@ -42,6 +43,7 @@ export const syncDoNetCust = async () => {
     await watcher.close();
     await kintoneBrowser.close();
     await page.close();
+    notifyDev('Done running sync customer. ');
   } catch (error: any) {
     notifyDev(`Error with syncDoNetCust. ${error.message}`);
   }
