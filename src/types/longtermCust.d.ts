@@ -9,16 +9,17 @@ declare namespace Yume.longtermCust {
     メールアドレス: kintone.fieldTypes.SingleLineText;
     反響媒体: kintone.fieldTypes.SingleLineText;
     長期追客理由: kintone.fieldTypes.SingleLineText;
-    氏名: kintone.fieldTypes.SingleLineText;
+    顧客名: kintone.fieldTypes.SingleLineText;
+    custId: kintone.fieldTypes.SingleLineText;
     電話番号: kintone.fieldTypes.SingleLineText;
-    ルックアップ: kintone.fieldTypes.SingleLineText;
     店舗名: kintone.fieldTypes.SingleLineText;
     連絡事項: kintone.fieldTypes.MultiLineText;
     '町名・番地': kintone.fieldTypes.SingleLineText;
     郵便番号: kintone.fieldTypes.SingleLineText;
+    日時: kintone.fieldTypes.DateTime;
     都道府県: kintone.fieldTypes.SingleLineText;
+    顧客名フリガナ: kintone.fieldTypes.SingleLineText;
     顧客種別: kintone.fieldTypes.SingleLineText;
-    氏名_フリガナ: kintone.fieldTypes.SingleLineText;
     テーブル: {
       type: 'SUBTABLE';
       value: {

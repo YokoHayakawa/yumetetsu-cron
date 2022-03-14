@@ -9,7 +9,7 @@ type FnMessageBlock = (record: LongTermCustomerType) => (Block | KnownBlock)[]
 
 const messageBlock: FnMessageBlock = (record) => {
   const {
-    氏名: name,
+    顧客名: name,
     電話番号: phone,
     メールアドレス: email,
     都道府県: pref,
