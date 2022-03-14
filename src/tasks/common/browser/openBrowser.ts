@@ -13,7 +13,7 @@ const getPage = async (browser: Browser) => {
 
 export const launchBrowser = () => {
   logger.info('Launching browser.');
-  return puppeteer.launch(options);
+  return puppeteer.launch();
 };
 
 export const openBrowserPage = async () => {
