@@ -13,8 +13,12 @@ import {homeSelectors} from '../config';
 
 export const navigateToCustPage = async (page: Page) => {
   logger.info('Navigating to customer page.');
-  await page.waitForSelector(homeSelectors.custNav);
+
+
+  await page.waitForSelector(homeSelectors.custNav),
   await page.click(homeSelectors.custNav);
+  await page.waitForNetworkIdle();
+
   return page;
 };
 

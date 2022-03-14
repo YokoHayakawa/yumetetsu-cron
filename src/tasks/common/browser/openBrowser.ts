@@ -19,7 +19,11 @@ export const launchBrowser = () => {
 export const openBrowserPage = async () => {
   logger.info('Opening page.');
   const browser = await launchBrowser();
-  return getPage(browser);
+  const page = await getPage(browser);
+  // eslint-disable-next-line max-len
+  await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36');
+
+  return page;
 };
 
 /**

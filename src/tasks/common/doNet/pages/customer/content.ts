@@ -3,12 +3,17 @@ import {getSelectOptions} from '../../../browser/helpers/content';
 import selectors from './selectors';
 import {logger} from '../../../../../utils';
 
-export const getOptionsStore = ( page: Page) => {
-  return getSelectOptions(page, selectors.ddStores);
+export const getOptionsStore = async ( page: Page) => {
+  const result = await getSelectOptions(page, selectors.ddStores);
+  logger.info(`Found ${result.length} stores`);
+
+  return result;
 };
 
-export const getOptionsEmployee = (page: Page) => {
-  return getSelectOptions(page, selectors.ddAgents);
+export const getOptionsEmployee = async (page: Page) => {
+  const result = await getSelectOptions(page, selectors.ddAgents);
+  logger.info(`Found ${result.length} employees`);
+  return result;
 };
 
 

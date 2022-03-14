@@ -15,6 +15,6 @@ export const homeSelectors = {
   custNav: '.sidebar-customer',
 };
 
-export const downloadLimit = 3000;
+export const downloadLimit = 4000;
 
 export const custDlDir = rootPath.resolve('/dump/customers');
