@@ -1,10 +1,8 @@
-import {dumpPath, getCSVFiles, logger} from '../../../utils';
-
-import {openBrowserPage} from '../browser';
+import {archivePath, dumpPath, getCSVFiles, logger} from '../../../utils';
 import {login} from './login';
-import path from 'path';
 import {Page} from 'puppeteer';
-
+import path from 'path';
+import fs from 'fs';
 
 export const selectors = {
   inputFile: 'input[type=file]',
@@ -31,9 +29,9 @@ export const goToImportPage = async (page: Page, appId: string) => {
   logger.info(`Successfully navigated to ${appId}`);
 };
 
-export const attachFile = async (page: Page, fileName: string) => {
-  logger.info(`Attaching ${fileName}`);
-  const filePath = path.join(dumpPath, fileName);
+export const attachFile = async (page: Page, filePath: string) => {
+  logger.info(`Attaching ${filePath}`);
+
   await page.waitForSelector(selectors.inputFile);
   const inputUploadHandle = await page.$(selectors.inputFile);
 
@@ -58,6 +56,25 @@ export const handleUpload = async (
   await page.click(selectors.btnImport);
 };
 
+const moveFileToArchive = (filePath: string) => {
+  const archiveFilePath = path.join(archivePath, path.basename(filePath));
+  fs.rename(filePath, archiveFilePath, (err) => {
+    if (err) {
+      logger.error(`Failed to move file. ${archiveFilePath}`);
+    } else {
+      logger.info(`Successfully moved. ${archiveFilePath}`);
+    }
+  });
+};
+
+export const uploadSingleCSV = async (
+  page: Page, appId: string, keyField = 'レコード番号', file: string,
+) => {
+  await goToImportPage(page, appId);
+  await attachFile(page, file);
+  await handleUpload(page, keyField);
+  moveFileToArchive(file);
+};
 
 /**
  * Uploads all processed csv.
@@ -70,14 +87,10 @@ export const handleUpload = async (
 export const uploadCSV = async (
   page: Page, appId: string, keyField = 'レコード番号',
 ) => {
-  // const page = await openBrowserPage();
-
   logger.info(`Starting upload to kintone for ${appId}.`);
   const files = getCSVFiles(dumpPath, appId);
   for (const file of files) {
-    await goToImportPage(page, appId);
-    await attachFile(page, file);
-    await handleUpload(page, keyField);
+    await uploadSingleCSV(page, appId, keyField, file);
   }
 
   return page;

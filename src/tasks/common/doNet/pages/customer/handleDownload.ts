@@ -13,7 +13,6 @@ import iconv from 'iconv-lite';
  * Programatically download csv data into stream.
  *
  * @param page
- * @param handleUpload
  * @return {string} data
  */
 export const handleDownload = async (page: Page) => {
