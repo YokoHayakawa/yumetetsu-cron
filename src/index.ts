@@ -19,7 +19,7 @@ cron.schedule('30 9 * * *', longtermCustomer, {
 /**
  * Full sync donet customers to kintone.
  */
-cron.schedule('*/15 * * * *', syncDoNetCust);
+cron.schedule('0 * * * *', syncDoNetCust);
 
 /**
  * Still alive log.
