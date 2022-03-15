@@ -1,4 +1,4 @@
-import {archivePath, custDlDir, dumpPath, getCSVFiles, rootPath} from './paths';
+import {archivePath, rootPath} from './paths';
 
 describe('paths', () =>{
   it('has returned root', ()=>{
@@ -10,8 +10,8 @@ describe('paths', () =>{
   });
 
 
-  it('has returned csv files', ()=> {
+/*   it('has returned csv files', ()=> {
     const files = getCSVFiles(dumpPath, '84');
     expect(files).toMatchSnapshot();
-  });
+  }); */
 });
