@@ -18,9 +18,10 @@ export const setCustForm = async (
 
   await page.waitForSelector(
     selectors.btnExpandForm, {visible: true});
-  await page.click(selectors.btnExpandForm);
+
 
   if (options.dateStr) {
+    await page.click(selectors.btnExpandForm);
     await page.waitForSelector(
       selectors.updateDate, {visible: true});
     await page.type(
