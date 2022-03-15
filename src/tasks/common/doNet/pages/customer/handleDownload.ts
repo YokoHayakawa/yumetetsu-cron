@@ -39,15 +39,17 @@ export const handleDownload = async (page: Page) => {
       `Finished file download with ${result?.split(/\r\n|\r|\n/).length || 0} lines. `,
     );
 
+    const filePath = path.join(
+      dumpPath,
+      format(new Date(), `${APP_IDS.customers}-yyyyMMdd-HHmmss`),
+    ) + '.csv';
+
     fs.writeFileSync(
-      path.join(
-        dumpPath,
-        format(new Date(), `${APP_IDS.customers}-yyyyMMdd-HHmmss`),
-      ) + '.csv',
+      filePath,
       iconv.encode(result, 'shift_jis'),
 
     );
-    return result;
+    return filePath;
   } catch (err: any) {
     notifyDev('Error downloading files' + err.message);
   }

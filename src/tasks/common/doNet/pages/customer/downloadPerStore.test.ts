@@ -1,6 +1,8 @@
 import {openMockBrowserPage} from '../../../browser';
 import {browserTimeOut} from '../../../browser/config';
-import {downloadPerStore} from './downloadPerStore';
+import {
+  downloadPerStore,
+  selectStoreThenSearch} from './downloadPerStore';
 
 
 describe('Stores', () => {
@@ -12,3 +14,14 @@ describe('Stores', () => {
     expect(res);
   }, browserTimeOut);
 });
+
+describe('Search', () => {
+  it('is downloaded', async () => {
+    const page = await openMockBrowserPage();
+    const res = await selectStoreThenSearch(page, '');
+
+    page.browser().disconnect();
+    expect(res);
+  }, browserTimeOut);
+});
+

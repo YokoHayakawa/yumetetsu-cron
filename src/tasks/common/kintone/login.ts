@@ -23,7 +23,7 @@ export const login = async (page: Page) => {
   /*  logger.info('Navigating to kintone login.');
   await page.goto(url); */
 
-  logger.info('Trying to login.');
+  logger.info('Trying to login to kintone.');
   await clear(page, selectors.user);
   await page.type(selectors.user, username);
 

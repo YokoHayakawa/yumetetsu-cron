@@ -8,12 +8,20 @@ import {clickSearch} from './clickSearch';
 import {handleDownload} from './handleDownload';
 import {downloadPerAgent} from './downloadPerAgent';
 import selectors from './selectors';
-import {launchBrowser, openBrowserPage} from '../../../browser';
+
 import {navigateToCustPage} from '../navigate';
 import {login} from '../../login';
 import {setCustForm} from './setCustForm';
 
-const downloadStore = async (browser: Browser, store: string) => {
+export const selectStoreThenSearch = async (page: Page, store: string) => {
+  /* Select store */
+  await page.waitForSelector(selectors.ddStores);
+  await page.select(selectors.ddStores, store);
+
+  return await clickSearch(page);
+};
+
+export const downloadStore = async (browser: Browser, store: string) => {
   /*
     Donetwork is limiting automation via the instance of the browser.
     I could have cleared cookies and other credentials but
@@ -32,10 +40,11 @@ const downloadStore = async (browser: Browser, store: string) => {
   await setCustForm(newPage);
 
   /* Select store */
-  await newPage.waitForSelector(selectors.ddStores);
+  /*  await newPage.waitForSelector(selectors.ddStores);
   await newPage.select(selectors.ddStores, store);
+*/
+  const resultCount = await selectStoreThenSearch(newPage, store);
 
-  const resultCount = await clickSearch(newPage);
   if (resultCount > 0 ) {
     if (resultCount <= downloadLimit) {
       await handleDownload(newPage);
@@ -43,6 +52,7 @@ const downloadStore = async (browser: Browser, store: string) => {
       await downloadPerAgent(newPage);
     }
   }
+
   await newPage.close();
 };
 

@@ -1,10 +1,11 @@
+
 import {Page} from 'puppeteer';
 import {logger} from '../../../../../utils';
 import selectors from './selectors';
 
 interface Options {
   chkStatus : boolean,
-  date?: string
+  dateStr?: string
 }
 
 export const setCustForm = async (
@@ -16,7 +17,16 @@ export const setCustForm = async (
 
 
   await page.waitForSelector(
-    '#m_customer_filters_customer_status_type', {visible: true});
+    selectors.btnExpandForm, {visible: true});
+  await page.click(selectors.btnExpandForm);
+
+  if (options.dateStr) {
+    await page.waitForSelector(
+      selectors.updateDate, {visible: true});
+    await page.type(
+      selectors.updateDate, options.dateStr,
+    );
+  }
   await page.$$eval(
     selectors.chkStatuses,
     (checks, isChecked) => {
