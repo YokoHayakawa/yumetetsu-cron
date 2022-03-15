@@ -28,10 +28,9 @@ cron.schedule('0 22 * * Sun', () => syncDoNetCust(true), options);
  * Full sync donet customers to kintone.
  *
  * At every 5th minute past every hour
- * from 8 through 19
  * on every day-of-week from Monday through Saturday.
  */
-cron.schedule('*/10 8-19 * * 1-6', () => syncDoNetCust());
+cron.schedule('*/10 * * * 1-6', () => syncDoNetCust());
 
 /**
  * Still alive log.
