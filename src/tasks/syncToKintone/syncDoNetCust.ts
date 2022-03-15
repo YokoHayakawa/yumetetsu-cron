@@ -25,11 +25,11 @@ export const syncDoNetCust = async (isFullSync = false) => {
 
     process.setMaxListeners(20);
     const page = await openBrowserPage();
-    const kintoneBrowser = await launchBrowser();
+    const kintoneBrowser = page.browser();
 
     const uploadTasks : Promise<void>[] = [];
 
-    watcher.on('add', async (path)=>{
+    watcher.on('add', (path)=>{
       uploadTasks.push((async ()=>{
         const context = await kintoneBrowser.createIncognitoBrowserContext();
         const newPage = await context.newPage();
@@ -60,11 +60,14 @@ export const syncDoNetCust = async (isFullSync = false) => {
       await handleDownload(page);
     }
 
+    // Wait a second to register all promises upload promises to stack.
+    await page.waitForTimeout(1000);
 
+    console.log('prmise', uploadTasks.length);
     await Promise.all(uploadTasks);
-    await kintoneBrowser.close();
 
-    await page.close();
+
+    await kintoneBrowser.close();
     await watcher.close();
   } catch (error: any) {
     notifyDev(`Error with syncDoNetCust. ${error.message}`);
