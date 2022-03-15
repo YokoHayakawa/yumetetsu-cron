@@ -15,7 +15,7 @@ export const launchBrowser = () => {
   logger.info(`Launching browser. `);
   return puppeteer.launch({
     defaultViewport: null,
-    headless: false,
+    headless: true,
     args: [
       '--disable-gpu',
       '--disable-dev-shm-usage',
