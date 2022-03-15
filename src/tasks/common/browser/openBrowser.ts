@@ -14,7 +14,7 @@ const getPage = async (browser: Browser) => {
 export const launchBrowser = () => {
   logger.info('Launching browser.');
   return puppeteer.launch({
-    args: ['--no-sandbox'],
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 };
 
