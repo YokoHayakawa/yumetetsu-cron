@@ -11,11 +11,13 @@ const getPage = async (browser: Browser) => {
   return pages.length > 0 ? pages[0] : browser.newPage();
 };
 
+logger.info(`Running in ${process.env.NODE_ENV}`);
+
 export const launchBrowser = () => {
   logger.info(`Launching browser. `);
   return puppeteer.launch({
     defaultViewport: null,
-    headless: false,
+    headless: process.env.NODE_ENV === 'production',
     args: [
       '--disable-gpu',
       '--disable-dev-shm-usage',
