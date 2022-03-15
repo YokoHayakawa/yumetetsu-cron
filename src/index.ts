@@ -7,19 +7,22 @@ import {longtermCustomer} from './tasks/reminders';
 import {syncDoNetCust} from './tasks/syncToKintone/syncDoNetCust';
 import {formattedTime, notifyDev} from './utils';
 
+const options = {
+  scheduled: true,
+  timezone: 'Asia/Tokyo',
+};
 
 /**
  * Reminds about longterm customer every day at 9:30 am
  */
-cron.schedule('30 9 * * *', longtermCustomer, {
-  scheduled: true,
-  timezone: 'Asia/Tokyo',
-});
+cron.schedule('30 9 * * *', longtermCustomer, options);
 
 /**
  * Full sync donet customers to kintone.
+ *
+ * At 22:00 on Sunday.
  */
-cron.schedule('At 22:00 on Sunday.', () => syncDoNetCust(true));
+cron.schedule('0 22 * * Sun', () => syncDoNetCust(true), options);
 
 /**
  * Full sync donet customers to kintone.
