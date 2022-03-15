@@ -61,9 +61,10 @@ export const syncDoNetCust = async (isFullSync = false) => {
     }
 
 
-    await page.close();
     await Promise.all(uploadTasks);
     await kintoneBrowser.close();
+
+    await page.close();
     await watcher.close();
   } catch (error: any) {
     notifyDev(`Error with syncDoNetCust. ${error.message}`);

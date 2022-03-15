@@ -74,6 +74,8 @@ export const uploadSingleCSV = async (
   await attachFile(page, file);
   await handleUpload(page, keyField);
   moveFileToArchive(file);
+
+  return page.waitForNetworkIdle();
 };
 
 /**
@@ -93,5 +95,5 @@ export const uploadCSV = async (
     await uploadSingleCSV(page, appId, keyField, file);
   }
 
-  return page;
+  return page.waitForNetworkIdle();
 };
