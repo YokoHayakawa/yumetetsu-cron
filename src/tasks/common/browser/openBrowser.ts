@@ -1,10 +1,10 @@
 import puppeteer, {Browser} from 'puppeteer';
 import {logger} from '../../../utils';
-import {optionsTest, browserURL} from './config';
+import {browserURL} from './config';
 
-const isTest = process.env.NODE_ENV === 'test';
+// const isTest = process.env.NODE_ENV === 'test';
 
-const options = isTest ? optionsTest() : undefined;
+// const options = isTest ? optionsTest() : undefined;
 
 const getPage = async (browser: Browser) => {
   const pages = await browser.pages();
@@ -13,7 +13,9 @@ const getPage = async (browser: Browser) => {
 
 export const launchBrowser = () => {
   logger.info('Launching browser.');
-  return puppeteer.launch();
+  return puppeteer.launch({
+    args: ['--no-sandbox'],
+  });
 };
 
 export const openBrowserPage = async () => {
