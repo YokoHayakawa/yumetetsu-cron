@@ -12,6 +12,7 @@ import {dumpPath, logger, notifyDev} from '../../utils';
 const watcher = chokidar.watch(dumpPath, {
   ignored: /(^|[/\\])\../, // ignore dotfiles
   persistent: true,
+  depth: 0,
 });
 
 
