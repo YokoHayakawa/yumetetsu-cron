@@ -14,6 +14,7 @@ const getPage = async (browser: Browser) => {
 export const launchBrowser = () => {
   logger.info('Launching browser.');
   return puppeteer.launch({
+    defaultViewport: null,
     headless: true,
     args: [
       '--disable-gpu',
