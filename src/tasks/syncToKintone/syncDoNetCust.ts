@@ -9,15 +9,16 @@ import {APP_IDS} from '../../api/kintone';
 import chokidar from 'chokidar';
 import {dumpPath, logger, notifyDev} from '../../utils';
 
-const watcher = chokidar.watch(dumpPath, {
-  ignored: /(^|[/\\])\../, // ignore dotfiles
-  persistent: true,
-  depth: 0,
-});
-
 
 export const syncDoNetCust = async () => {
   try {
+    /** File watcher */
+    const watcher = chokidar.watch(dumpPath, {
+      ignored: /(^|[/\\])\../, // ignore dotfiles
+      persistent: true,
+      depth: 0,
+    });
+
     notifyDev('Running sync customer. ');
     process.setMaxListeners(20);
     const page = await openBrowserPage();
