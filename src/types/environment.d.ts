@@ -20,6 +20,7 @@ declare global {
       DO_NETWORK_USER: string,
       DO_NETWORK_PASSWORD: string,
 
+      BROWSER_TYPE: 'NORMAL' | 'HEADLESS',
       NODE_ENV: string,
       CLI_KINTONE_PATH: string
     }

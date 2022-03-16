@@ -13,7 +13,7 @@ const options = {
 };
 
 /**
- * Reminds about longterm customer every day at 9:30 am
+ * Reminds about longterm customers every day at 9:30 am
  */
 cron.schedule('30 9 * * *', longtermCustomer, options);
 

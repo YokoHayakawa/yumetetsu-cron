@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "start:dev": "cross-env NODE_ENV=dev nodemon",
-    "upstart": "cross-env NODE_ENV=production git pull && npm run start",
+    "upstart": "cross-env NODE_ENV=prod git pull && npm run start",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
     "generate-barrels": "barrelsby --delete",

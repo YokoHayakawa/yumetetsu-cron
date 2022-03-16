@@ -3,7 +3,7 @@ import {syncDoNetCust} from './syncDoNetCust';
 
 describe('SyncCust', ()=> {
   it('is successful', async ()=>{
-    const page = await syncDoNetCust(false);
+    const page = await syncDoNetCust(true);
     expect(page).toMatchSnapshot();
   }, browserTimeOut);
 });
