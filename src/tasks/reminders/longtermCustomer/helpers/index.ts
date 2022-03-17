@@ -1,5 +1,5 @@
 
-export const resolveChannel = (store: string) => {
+/* export const resolveChannel = (store: string) => {
   if (process.env.NODE_ENV === 'test') {
     console.log('Test environment');
     return process.env.SLACK_CHANNEL_ID_TEST;
@@ -16,4 +16,4 @@ export const resolveChannel = (store: string) => {
   } else {
     return process.env.SLACK_CHANNEL_ID_TOYOKAWA;
   }
-};
+}; */

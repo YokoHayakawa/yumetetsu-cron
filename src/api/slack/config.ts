@@ -5,4 +5,10 @@ export const slackApp = new App({
   token: process.env.SLACK_BOT_TOKEN,
 });
 
+export const slackCannels = {
+  toyokawa: 'C02QPP4DYS3',
+  toyohashi: 'C02R6LKGVNY',
+  toyota: 'C034VNAHJCW',
+  nakagawa: 'C036G6A14DN',
+};
 

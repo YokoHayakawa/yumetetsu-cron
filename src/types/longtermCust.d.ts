@@ -3,7 +3,8 @@ declare namespace Yume.longtermCust {
     反響手段: kintone.fieldTypes.SingleLineText;
     市: kintone.fieldTypes.SingleLineText;
     長期理由詳細: kintone.fieldTypes.MultiLineText;
-    isSentToSlack: kintone.fieldTypes.Number;
+    biko: kintone.fieldTypes.SingleLineText;
+    reasonCancel: kintone.fieldTypes.SingleLineText;
     追客可能時期: kintone.fieldTypes.Date;
     担当者名: kintone.fieldTypes.SingleLineText;
     メールアドレス: kintone.fieldTypes.SingleLineText;
@@ -15,11 +16,14 @@ declare namespace Yume.longtermCust {
     店舗名: kintone.fieldTypes.SingleLineText;
     連絡事項: kintone.fieldTypes.MultiLineText;
     '町名・番地': kintone.fieldTypes.SingleLineText;
+    slackChannel: kintone.fieldTypes.SingleLineText;
     郵便番号: kintone.fieldTypes.SingleLineText;
     日時: kintone.fieldTypes.DateTime;
+    slackTS: kintone.fieldTypes.SingleLineText;
     都道府県: kintone.fieldTypes.SingleLineText;
     顧客名フリガナ: kintone.fieldTypes.SingleLineText;
     顧客種別: kintone.fieldTypes.SingleLineText;
+    slackSentStatus: kintone.fieldTypes.Number;
     テーブル: {
       type: 'SUBTABLE';
       value: {

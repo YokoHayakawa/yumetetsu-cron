@@ -1,13 +1,17 @@
 import {Block, KnownBlock} from '@slack/bolt';
 import {slackApp} from '../../../../api/slack';
+import {resolveChannel} from '../../../../api/slack/helpers';
 import {globalInterval} from '../../../../config';
-import {resolveChannel} from '../helpers';
+
 import {markSuccess} from './updateLongTermCust';
 
 
-type FnMessageBlock = (record: LongTermCustomerType) => (Block | KnownBlock)[]
+type FnMessageBlock = (
+  record: LongTermCustomerType,
+  textHeader: string
+) => (Block | KnownBlock)[]
 
-const messageBlock: FnMessageBlock = (record) => {
+const messageBlock: FnMessageBlock = (record, textHeader) => {
   const {
     顧客名: name,
     電話番号: phone,
@@ -34,7 +38,7 @@ const messageBlock: FnMessageBlock = (record) => {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: '追客可能時期となりました！\nお客様へのご連絡・ご対応をお願いします！',
+        text: `${textHeader}\nお客様へのご連絡・ご対応をお願いします！`,
       },
     },
 
@@ -86,14 +90,24 @@ const messageBlock: FnMessageBlock = (record) => {
  *
  * @param {LongTermCustomerType} rec kintone record
  */
-const sendRecToSlack = async (rec: LongTermCustomerType) => {
+const sendRecToSlack = async (
+  rec: LongTermCustomerType,
+) => {
+  const {
+    店舗名: storeName,
+    slackSentStatus,
+  } = rec;
+
+  const isActualHankyoDate = slackSentStatus.value === '1';
+  const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : '３か月前くらいです'}!`;
+
   const resp = await slackApp.client.chat.postMessage({
-    channel: resolveChannel(rec.店舗名.value),
-    text: '追客可能時期となりました！',
-    blocks: messageBlock(rec),
+    channel: resolveChannel(storeName.value),
+    text: textHeader,
+    blocks: messageBlock(rec, textHeader),
   });
 
-  if (resp.ok) markSuccess(rec.$id.value);
+  if (resp.ok) await markSuccess(rec, resp);
 };
 
 
@@ -103,7 +117,8 @@ export default async (records: LongTermCustomerType[]) => {
   const tasks = records.map((rec, idx) => {
     return new Promise(
       (resolve) => setTimeout(
-        ()=> resolve(sendRecToSlack(rec)), idx * globalInterval,
+        ()=> resolve(sendRecToSlack(rec)),
+        idx * globalInterval,
       ),
     );
   });
