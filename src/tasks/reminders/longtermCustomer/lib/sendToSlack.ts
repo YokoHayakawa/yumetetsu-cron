@@ -2,6 +2,7 @@ import {Block, KnownBlock} from '@slack/bolt';
 import {slackApp} from '../../../../api/slack';
 import {resolveChannel} from '../../../../api/slack/helpers';
 import {globalInterval} from '../../../../config';
+import {SlackSentStatus} from '../helpers';
 
 import {markSuccess} from './updateLongTermCust';
 
@@ -81,25 +82,18 @@ const messageBlock: FnMessageBlock = (record, textHeader) => {
   ];
 };
 
-/**
- * Send formatted record to Slack, then mark the record that
- * it is already sent.
- *
- * This is failsafe when the record is scheduled
- * to be sent but, an error or server fault occured.
- *
- * @param {LongTermCustomerType} rec kintone record
- */
+
 const sendRecToSlack = async (
   rec: LongTermCustomerType,
+  slackSentStatus: SlackSentStatus,
 ) => {
   const {
     店舗名: storeName,
-    slackSentStatus,
+
   } = rec;
 
-  const isActualHankyoDate = slackSentStatus.value === '1';
-  const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : '３か月前くらいです'}!`;
+  const isActualHankyoDate = slackSentStatus === 1;
+  const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : 'が近づきました'}!`;
 
   const resp = await slackApp.client.chat.postMessage({
     channel: resolveChannel(storeName.value),
@@ -107,17 +101,28 @@ const sendRecToSlack = async (
     blocks: messageBlock(rec, textHeader),
   });
 
-  if (resp.ok) await markSuccess(rec, resp);
+  if (resp.ok) await markSuccess(rec, resp, slackSentStatus);
 };
 
-
-export default async (records: LongTermCustomerType[]) => {
+/**
+ * Send formatted records to Slack, then mark the record that
+ * it is already sent.
+ *
+ * This is failsafe when the record is scheduled
+ * to be sent but, an error or server fault occured.
+ * @param records kintone records
+ * @param slackSentStatus as named.
+ */
+export default async (
+  records: LongTermCustomerType[],
+  slackSentStatus: SlackSentStatus,
+) => {
   // Slack is generous in API calls even though it is generally free.
   // However, rate limiters might kick in so I'm using a timed promise here.
   const tasks = records.map((rec, idx) => {
     return new Promise(
       (resolve) => setTimeout(
-        ()=> resolve(sendRecToSlack(rec)),
+        ()=> resolve(sendRecToSlack(rec, slackSentStatus)),
         idx * globalInterval,
       ),
     );

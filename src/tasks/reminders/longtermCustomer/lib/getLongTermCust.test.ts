@@ -1,31 +1,15 @@
-import getLongTermCust,
-{getActualRemindHankyo, getPreRemindHankyo} from './getLongTermCust';
+import getLongTermCust from './getLongTermCust';
 
 describe('Hankyo', ()=>{
   it('are retrieved', async ()=>{
-    const result = await getLongTermCust('2025-08-02');
+    const result = await getLongTermCust(1);
     console.log(result.totalCount);
-    expect(result).toHaveProperty('totalCount');
-  });
+    const records = result.records as LongTermCustomerType[];
 
-  it('pre-remind', async ()=>{
-    const result = await getPreRemindHankyo();
-    const totalCount = result.totalCount || 0;
-    console.log(totalCount);
-    if (totalCount > 0) {
-      console.log(result.records[0]);
-      expect(result.records[0]).toMatchSnapshot();
+    if (records.length > 0) {
+      console.log(records[0]?.追客可能時期.value);
     }
-    expect(result).toHaveProperty('totalCount');
-  });
 
-  it('actual reminder', async ()=>{
-    const result = await getActualRemindHankyo();
-    const totalCount = result.totalCount || 0;
-    console.log(totalCount);
-    if (totalCount > 0) {
-      expect(result.records[0]).toMatchSnapshot();
-    }
     expect(result).toHaveProperty('totalCount');
   });
 });

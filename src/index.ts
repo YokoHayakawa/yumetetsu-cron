@@ -3,7 +3,7 @@ require('dotenv').config();
 
 import cron from 'node-cron';
 import {appName} from './config';
-import {longtermCustomer} from './tasks/reminders';
+import {remindOnLongtermCust} from './tasks';
 import {syncDoNetCust} from './tasks/syncToKintone/syncDoNetCust';
 import {formattedTime, notifyDev} from './utils';
 
@@ -15,7 +15,7 @@ const options = {
 /**
  * Reminds about longterm customers every day at 9:30 am
  */
-cron.schedule('30 9 * * *', longtermCustomer, options);
+cron.schedule('30 9 * * *', remindOnLongtermCust, options);
 
 /**
  * Full sync donet customers to kintone.

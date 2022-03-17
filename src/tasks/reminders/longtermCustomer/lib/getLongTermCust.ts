@@ -1,30 +1,24 @@
 import {APP_IDS, kintoneClient} from '../../../../api/kintone';
-import format from 'date-fns/format';
-import {subMonths} from 'date-fns';
+import {SlackSentStatus} from '../helpers/resolveQueryDate';
+import {resolveQueryDate} from '../helpers';
+import {logger} from '../../../../utils';
 
-/**
- * 0 : reminder ✖, actual ✖;
- * 1 : reminder 〇, actual ✖;
- * 2 : eminder 〇, actual 〇;
- */
-type SlackSentStatus = 0 | 1 | 2
 
 const getLongTermCust = async <T extends keyof LongTermCustomerType>
 (
-  dateStr: string = format(new Date(), 'yyyy-MM-dd'),
   slackSentStatus : SlackSentStatus = 0,
 ) => {
-  // const dateToCompare = format(new Date(), 'yyyy-MM-dd');
-  console.log(dateStr, 'dateStr');
+  const queryDate = resolveQueryDate(slackSentStatus);
 
+  logger.info(`Fetching longTermCust with date query: ${queryDate}`);
 
   return kintoneClient.record.getRecords({
     app: APP_IDS['longTermCustomers'],
     totalCount: true,
     query:
     [
-      `${'slackSentStatus' as T} = "${slackSentStatus}"`,
-      `${'追客可能時期' as T} <= "${dateStr}"`,
+      `${'slackSentStatus' as T} <= "${slackSentStatus}"`,
+      ...queryDate,
       `${'追客可能時期' as T} != ""`,
     ].join(' and '),
   })
@@ -39,7 +33,7 @@ const getLongTermCust = async <T extends keyof LongTermCustomerType>
     });
 };
 
-export const getPreRemindHankyo = () => {
+/* export const getPreRemindHankyo = () => {
   return getLongTermCust(
     format(subMonths(new Date(), 3), 'yyyy-MM-dd'),
     0,
@@ -52,7 +46,7 @@ export const getActualRemindHankyo = () => {
     1,
   );
 };
-
+ */
 
 export default getLongTermCust;
 

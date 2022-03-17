@@ -21,6 +21,7 @@ declare global {
       DO_NETWORK_PASSWORD: string,
 
       BROWSER_TYPE: 'NORMAL' | 'HEADLESS',
+      ENVIRONMENT: 'dev' | 'prod',
       NODE_ENV: string,
       CLI_KINTONE_PATH: string
     }
