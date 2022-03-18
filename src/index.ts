@@ -15,7 +15,7 @@ const options = {
 /**
  * Reminds about longterm customers every day at 9:30 am
  */
-cron.schedule('30 9 * * *', remindOnLongtermCust, options);
+// cron.schedule('30 9 * * *', remindOnLongtermCust, options);
 
 /**
  * Full sync donet customers to kintone.
