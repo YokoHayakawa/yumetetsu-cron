@@ -40,12 +40,13 @@ export const mainContents = (record: LongTermCustomerType) => {
       'type': 'section',
       'fields': [
         ['顧客番号', custId.value],
+        ['受付日', `${receptionDate.value}`],
         ['お客様名', name.value],
         ['店舗', storeName.value],
         ['担当者', aGName.value],
         ['連絡先', [phone.value, mobile.value, email.value].join('\n')],
         ['住所', `${pref.value} ${city.value} ${houseNo.value}`],
-        ['受付日', `${receptionDate.value}`],
+
       ].map(
         ([label, value])=> ({type: 'mrkdwn', text: `*${label}：*\n${value}`}),
       ),

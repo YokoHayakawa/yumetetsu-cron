@@ -14,6 +14,10 @@ declare global {
       SLACK_CHANNEL_ID_TOYOHASHI: string,
       SLACK_CHANNEL_ID_TOYOTA: string,
       SLACK_CHANNEL_ID_NAKAGAWA: string,
+      SLACK_CHANNEL_ID_GAMAGORI: string,
+      SLACK_CHANNEL_ID_TAKAHAMA: string,
+      SLACK_CHANNEL_ID_OGAKI: string,
+
       SLACK_CHANNEL_ID_TEST: string,
       SLACK_CHANNEL_ID_DEV: string,
 

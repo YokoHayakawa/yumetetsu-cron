@@ -43,7 +43,7 @@ const sendRecToSlack = async (
   } = rec;
 
   const isActualHankyoDate = slackSentStatus === 1 || dueDate.value;
-  const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : '３ヶ月前以上です'}!`;
+  const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : '３ヶ月前です'}!`;
 
   const resp = await slackApp.client.chat.postMessage({
     channel: resolveChannel(storeName.value),

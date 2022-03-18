@@ -8,6 +8,9 @@ const resolveProdChannels = (storeName: string) => {
     toyokawa,
     toyohashi,
     toyota,
+    takahama,
+    ogaki,
+    gamagori,
   } = slackChannels;
 
   const isIncludedInStore = (store: string) => {
@@ -22,6 +25,12 @@ const resolveProdChannels = (storeName: string) => {
     return toyota;
   } else if (['中川', '千種'].some(isIncludedInStore)) {
     return nakagawa;
+  } else if (['高浜'].some(isIncludedInStore)) {
+    return takahama;
+  } else if (['蒲郡'].some(isIncludedInStore)) {
+    return gamagori;
+  } else if (['大垣'].some(isIncludedInStore)) {
+    return ogaki;
   } else {
     return toyokawa;
   }
