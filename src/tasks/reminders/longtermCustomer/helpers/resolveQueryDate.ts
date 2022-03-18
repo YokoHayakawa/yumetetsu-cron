@@ -3,7 +3,7 @@ import {subMonths} from 'date-fns';
 /**
  * 0 : reminder ✖, actual ✖;
  * 1 : reminder 〇, actual ✖;
- * 2 : eminder 〇, actual 〇;
+ * 2 : reminder 〇, actual 〇;
  */
 export type SlackSentStatus = 0 | 1 | 2
 
@@ -22,3 +22,13 @@ export const resolveQueryDate = (slackSentStatus: SlackSentStatus) => {
 
   return result.map((item) => `追客可能時期 ${item}`);
 };
+
+
+// 0 <= 1 Passed
+// 2022/01/18 <= 2022/03/18
+// 2022/01/18 > 2021/12/18
+// Passed
+
+// 2022/11/18 <= 2022/03/18
+// 2022/11/18 > 2022/12/18
+// Fail

@@ -3,6 +3,12 @@ import {slackApp} from '../../../../api/slack';
 import {resolveChannel} from '../../../../api/slack/helpers';
 import {globalInterval} from '../../../../config';
 import {SlackSentStatus} from '../helpers';
+import {
+  footNote,
+  header,
+  longtermReason,
+  mainContents,
+  notesAndCancelReason} from './messageParts';
 
 import {markSuccess} from './updateLongTermCust';
 
@@ -13,73 +19,15 @@ type FnMessageBlock = (
 ) => (Block | KnownBlock)[]
 
 const messageBlock: FnMessageBlock = (record, textHeader) => {
-  const {
-    顧客名: name,
-    電話番号: phone,
-    メールアドレス: email,
-    都道府県: pref,
-    市: city,
-    '町名・番地': houseNo,
-    担当者名: aGName,
-    店舗名: storeName,
-    長期理由詳細: reasonDetails,
-    長期追客理由: reasonForFFLongterm,
-    追客可能時期: dueDate,
-  } = record;
-
-  return [
-    {
-      'type': 'header',
-      'text': {
-        'type': 'plain_text',
-        'text': ':newspaper: 長期追客顧客',
-      },
-    },
-    {
-      type: 'section',
-      text: {
-        type: 'mrkdwn',
-        text: `${textHeader}\nお客様へのご連絡・ご対応をお願いします！`,
-      },
-    },
-
-    {type: 'divider'},
-
-    {
-      'type': 'section',
-      'fields': [
-        ['お客様名', name.value],
-        ['店舗', storeName.value],
-        ['担当者', aGName.value],
-        ['連絡先', `${phone.value} ${email.value}`],
-        ['住所', `${pref.value} ${city.value} ${houseNo.value}`],
-      ].map(
-        ([label, value])=> ({type: 'mrkdwn', text: `*${label}：*\n${value}`}),
-      ),
-    },
-
-    {type: 'divider'},
-
-    {
-      type: 'section',
-      text: {
-        type: 'mrkdwn',
-        // eslint-disable-next-line max-len
-        text: `*長期追客理由*\n ${reasonForFFLongterm.value}\n${reasonDetails.value}`,
-      },
-    },
-
-    {
-      'type': 'context',
-      'elements': [
-        {
-          'type': 'plain_text',
-          'text': dueDate.value,
-        },
-      ],
-    },
-
+  const messageBlock = [
+    ...header(textHeader),
+    ...mainContents(record),
+    ...notesAndCancelReason(record),
+    ...longtermReason(record),
+    ...footNote(record),
   ];
+
+  return messageBlock;
 };
 
 
@@ -93,7 +41,7 @@ const sendRecToSlack = async (
   } = rec;
 
   const isActualHankyoDate = slackSentStatus === 1;
-  const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : 'が近づきました'}!`;
+  const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : '３ヶ月前以上です'}!`;
 
   const resp = await slackApp.client.chat.postMessage({
     channel: resolveChannel(storeName.value),

@@ -1,7 +1,6 @@
 import {kintoneClient} from '.';
 
-import {exec, execSync} from 'child_process';
-import iconv from 'iconv-lite';
+import {execSync} from 'child_process';
 import {decodeToSJIS} from '../../utils/text';
 
 
