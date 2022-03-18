@@ -33,6 +33,7 @@ export const mainContents = (record: LongTermCustomerType) => {
     市: city,
     都道府県: pref,
     '町名・番地': houseNo,
+    receptionDate,
   } = record;
   return [
     {
@@ -44,6 +45,7 @@ export const mainContents = (record: LongTermCustomerType) => {
         ['担当者', aGName.value],
         ['連絡先', [phone.value, mobile.value, email.value].join('\n')],
         ['住所', `${pref.value} ${city.value} ${houseNo.value}`],
+        ['受付日', `${receptionDate.value}`],
       ].map(
         ([label, value])=> ({type: 'mrkdwn', text: `*${label}：*\n${value}`}),
       ),
@@ -126,6 +128,7 @@ export const footNote = (record: LongTermCustomerType) => {
     追客可能時期: dueDate,
     custId,
     $id: id,
+    sentToSlackDate,
   } = record;
 
   return [
@@ -135,10 +138,13 @@ export const footNote = (record: LongTermCustomerType) => {
         {
           'type': 'mrkdwn',
           'text': [
-            `*追客可能時期:* ${dueDate.value}`,
+            sentToSlackDate.value ? `*最終通知日：* ${sentToSlackDate.value}` : null,
+            `*追客可能時期:* ${dueDate.value || '未定'}`,
             `<${generateLink(APP_IDS.longTermCustomers, id.value)}|Kintoneで開く>`,
             `<${generateDoNetLink(custId.value)}|DoNetworkで開く> 事前にブラウザでログインが必須`,
-          ].join('\n'),
+          ]
+            .filter((item) => item)
+            .join('\n'),
         },
       ],
     },

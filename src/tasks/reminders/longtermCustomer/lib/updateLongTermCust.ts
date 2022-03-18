@@ -1,4 +1,5 @@
 import {ChatPostMessageResponse} from '@slack/web-api';
+import {format} from 'date-fns';
 import {APP_IDS, kintoneClient} from '../../../../api/kintone';
 import {SlackSentStatus} from '../helpers';
 
@@ -10,6 +11,7 @@ export const markSuccess = (
 ) =>{
   const {
     $id: id,
+    追客可能時期: dueDate,
   } = rec;
 
   const {
@@ -17,14 +19,16 @@ export const markSuccess = (
     ts,
   } = slackResp;
 
+  const newSlackSentStatus = dueDate.value ? slackSentStatus + 1 : 0;
 
   return kintoneClient.record.updateRecord({
     app: APP_IDS.longTermCustomers,
     id: id.value,
     record: {
-      'slackSentStatus': {value: `${slackSentStatus + 1}`},
-      'slackChannel': {value: channel},
-      'slackTS': {value: ts},
+      slackSentStatus: {value: `${newSlackSentStatus}`},
+      slackChannel: {value: channel},
+      slackTS: {value: ts},
+      sentToSlackDate: {value: format(new Date(), 'yyyy-MM-dd')},
     } as Partial<LongTermCustomerType>,
   });
 };
