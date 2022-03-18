@@ -1,4 +1,4 @@
-import {logger, notifyDev} from '../../../utils';
+import {logger} from '../../../utils';
 import getLongTermCust from './lib/getLongTermCust';
 import {SlackSentStatus} from './helpers';
 import sendToSlack from './lib/sendToSlack';
