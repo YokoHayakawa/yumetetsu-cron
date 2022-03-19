@@ -6,6 +6,7 @@ import {logger} from '../../../../utils';
 import {getYearDiffFromToday} from '../../../../utils/dates';
 import {SlackSentStatus} from '../helpers';
 import {
+  actions,
   footNote,
   header,
   longtermReason,
@@ -21,11 +22,13 @@ type FnMessageBlock = (
 ) => (Block | KnownBlock)[]
 
 const messageBlock: FnMessageBlock = (record, textHeader) => {
+  /* Divided by parts so I can flexibly rearrange them. */
   const messageBlock = [
     ...header(textHeader),
     ...mainContents(record),
     ...notesAndCancelReason(record),
     ...longtermReason(record),
+    ...actions(record),
     ...footNote(record),
   ];
 
@@ -44,6 +47,7 @@ const sendRecToSlack = async (
 
   const isActualHankyoDate = slackSentStatus === 1 || dueDate.value;
   const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : '３ヶ月前です'}!`;
+  const isDevEnvironment = process.env.ENVIRONMENT === 'dev';
 
   const resp = await slackApp.client.chat.postMessage({
     channel: resolveChannel(storeName.value),
@@ -51,12 +55,15 @@ const sendRecToSlack = async (
     blocks: messageBlock(rec, textHeader),
   });
 
-  if (resp.ok) await markSuccess(rec, resp, slackSentStatus);
+  if (resp.ok && !isDevEnvironment) {
+    return await markSuccess(rec, resp, slackSentStatus);
+  }
 };
+
 
 /**
  * Send formatted records to Slack, then mark the record that
- * it is already sent.
+ * it already sent.
  *
  * This is failsafe when the record is scheduled
  * to be sent but, an error or server fault occured.
@@ -75,7 +82,7 @@ export default async (
       sentToSlackDate,
     } = rec;
 
-    /* Requirement: Send empty dueDate every year only. */
+    /* Requirement: Notify empty dueDate every year. */
     if (!dueDate.value) {
       const dateToCompare = sentToSlackDate.value || receptionDate.value;
       const diffInYears = getYearDiffFromToday(dateToCompare);

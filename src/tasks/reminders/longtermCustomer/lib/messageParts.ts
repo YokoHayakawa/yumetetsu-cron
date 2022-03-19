@@ -1,5 +1,8 @@
 import {generateLink, APP_IDS} from '../../../../api/kintone';
 import {generateDoNetLink} from '../../../../api/doNet';
+import {format, parseISO} from 'date-fns';
+
+import {ActionsBlock} from '@slack/bolt';
 
 export const header = (textHeader: string) => {
   return [
@@ -40,7 +43,7 @@ export const mainContents = (record: LongTermCustomerType) => {
       'type': 'section',
       'fields': [
         ['顧客番号', custId.value],
-        ['受付日', `${receptionDate.value}`],
+        ['受付日', `${format(parseISO(receptionDate.value), 'yyyy-MM-dd')}`],
         ['お客様名', name.value],
         ['店舗', storeName.value],
         ['担当者', aGName.value],
@@ -124,6 +127,7 @@ export const longtermReason = (record: LongTermCustomerType) => {
   ];
 };
 
+
 export const footNote = (record: LongTermCustomerType) => {
   const {
     追客可能時期: dueDate,
@@ -150,5 +154,43 @@ export const footNote = (record: LongTermCustomerType) => {
       ],
     },
     {type: 'divider'},
+  ];
+};
+
+
+export const actions = (
+  record: LongTermCustomerType,
+) => {
+  const actionValue = JSON.stringify({
+    appId: APP_IDS.longTermCustomers,
+    recordId: record.$id.value,
+  });
+  const actions : ActionsBlock = {
+    type: 'actions',
+    elements: [
+      {
+        type: 'button',
+        text: {
+          type: 'plain_text',
+          emoji: true,
+          text: '対応します',
+        },
+        style: 'primary',
+        value: actionValue,
+      },
+      {
+        type: 'button',
+        text: {
+          type: 'plain_text',
+          emoji: true,
+          text: '通知停止',
+        },
+        style: 'danger',
+        value: actionValue,
+      },
+    ],
+  };
+  return [
+    actions,
   ];
 };
