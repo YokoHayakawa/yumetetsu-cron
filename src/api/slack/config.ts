@@ -17,3 +17,7 @@ export const slackChannels = {
   test: process.env.SLACK_CHANNEL_ID_TEST,
 };
 
+export const actionIds = {
+  btnLongtermCustYes: 'btnLongtermCustYes',
+  btnLongtermCustStopNotif: 'btnLongtermCustStopNotif',
+};

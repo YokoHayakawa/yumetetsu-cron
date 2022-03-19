@@ -3,6 +3,7 @@ import {generateDoNetLink} from '../../../../api/doNet';
 import {format, parseISO} from 'date-fns';
 
 import {ActionsBlock} from '@slack/bolt';
+import {actionIds} from '../../../../api/slack/serverConstants';
 
 export const header = (textHeader: string) => {
   return [
@@ -167,9 +168,11 @@ export const actions = (
   });
   const actions : ActionsBlock = {
     type: 'actions',
+
     elements: [
       {
         type: 'button',
+        action_id: actionIds.btnLongtermCustYes,
         text: {
           type: 'plain_text',
           emoji: true,
@@ -180,6 +183,7 @@ export const actions = (
       },
       {
         type: 'button',
+        action_id: actionIds.btnLongtermCustStopNotif,
         text: {
           type: 'plain_text',
           emoji: true,
