@@ -3,7 +3,7 @@ import {generateDoNetLink} from '../../../../api/doNet';
 import {format, parseISO} from 'date-fns';
 
 import {ActionsBlock} from '@slack/bolt';
-import {actionIds} from '../../../../api/slack/serverConstants';
+import {actionIds} from '../../../../api/slack/';
 
 export const header = (textHeader: string) => {
   return [
@@ -50,7 +50,6 @@ export const mainContents = (record: LongTermCustomerType) => {
         ['担当者', aGName.value],
         ['連絡先', [phone.value, mobile.value, email.value].join('\n')],
         ['住所', `${pref.value} ${city.value} ${houseNo.value}`],
-
       ].map(
         ([label, value])=> ({type: 'mrkdwn', text: `*${label}：*\n${value}`}),
       ),
@@ -172,7 +171,7 @@ export const actions = (
     elements: [
       {
         type: 'button',
-        action_id: actionIds.btnLongtermCustYes,
+        action_id: actionIds.actOnLtHankyo,
         text: {
           type: 'plain_text',
           emoji: true,
@@ -183,7 +182,7 @@ export const actions = (
       },
       {
         type: 'button',
-        action_id: actionIds.btnLongtermCustStopNotif,
+        action_id: actionIds.stopNotify,
         text: {
           type: 'plain_text',
           emoji: true,

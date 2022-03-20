@@ -44,5 +44,6 @@ export const resolveChannel = (storeName: string) => {
     return slackChannels.test;
   }
 
+
   return prodChannel;
 };

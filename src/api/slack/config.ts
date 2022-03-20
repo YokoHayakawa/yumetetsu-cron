@@ -9,7 +9,7 @@ export const slackChannels = {
   toyokawa: process.env.SLACK_CHANNEL_ID_TOYOKAWA,
   toyohashi: process.env.SLACK_CHANNEL_ID_TOYOHASHI, //  'C02R6LKGVNY',
   toyota: process.env.SLACK_CHANNEL_ID_TOYOTA, // 'C034VNAHJCW',
-  nakagawa: process.env.SLACsK_CHANNEL_ID_NAKAGAWA, // 'C036G6A14DN',
+  nakagawa: process.env.SLACK_CHANNEL_ID_NAKAGAWA, // 'C036G6A14DN',
   takahama: process.env.SLACK_CHANNEL_ID_TAKAHAMA, // 'C036G6A14DN',
   ogaki: process.env.SLACK_CHANNEL_ID_OGAKI, // 'C036G6A14DN',
   gamagori: process.env.SLACK_CHANNEL_ID_GAMAGORI, // 'C036G6A14DN',
