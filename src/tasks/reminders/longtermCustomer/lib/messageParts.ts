@@ -186,7 +186,7 @@ export const actions = (
         text: {
           type: 'plain_text',
           emoji: true,
-          text: 'もう追わない',
+          text: '追客を停止する',
         },
         style: 'danger',
         value: actionValue,
