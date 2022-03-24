@@ -19,6 +19,7 @@ export const markSuccess = (
     ts,
   } = slackResp;
 
+  // Don't update slackSentStatus if dueDate is empty
   const newSlackSentStatus = dueDate.value ? slackSentStatus + 1 : 0;
 
   return kintoneClient.record.updateRecord({

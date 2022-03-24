@@ -17,7 +17,7 @@ const getLongTermCust = async <T extends keyof LongTermCustomerType>
     totalCount: true,
     query:
     [
-      `${'slackSentStatus' as T} <= "${slackSentStatus}"`,
+      `${'slackSentStatus' as T} = "${slackSentStatus}"`,
       `${'stopNotifyReason' as T} = ""`,
       queryDate,
     ].join(' and '),

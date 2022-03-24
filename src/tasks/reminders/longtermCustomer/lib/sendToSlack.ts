@@ -85,10 +85,14 @@ export default async (
   for (const rec of records) {
     const {
       receptionDate,
+      追客可能時期: dueDate,
     } = rec;
 
-    // Requirement: Notify empty dueDate same month and day every year.
-    if (slackSentStatus === 1 || isSameMonthDay(receptionDate.value)) {
+    if (
+      slackSentStatus === 1 || // Notify on actual date
+      (slackSentStatus === 0 && dueDate.value) || // Notify 3 months before
+      isSameMonthDay(receptionDate.value) // Notify every year
+    ) {
       await new Promise(
         (resolve) => setTimeout(
           ()=> resolve(sendRecToSlack(rec, slackSentStatus)),
@@ -98,3 +102,18 @@ export default async (
     }
   }
 };
+
+/**
+ * Requirements definition
+ *
+ * With dueDate
+ *
+ * - Notify 3 months before
+ * slackSentStatus === 0 and 3 months before dueDate
+ * - Notify on actual date
+ * slackSentStatus === 1 and within 0 - 2.99 months
+ *
+ * Without dueDate
+ * - Notify every year on the same month and day
+ * slackSentStatus === 0 and dueDate === ""
+ *  */
