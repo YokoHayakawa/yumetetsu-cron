@@ -29,11 +29,6 @@ export const deleteMessages = async <
 >() => {
   const result = await kintoneClient.record.getRecords({
     app: APP_IDS.longTermCustomers,
-    query: [
-      // `${'sentToSlackDate' as T} != ""`,
-      `${'追客可能時期' as T} = ""`,
-      `${'slackChannel' as T} != ""`,
-    ].join(' and '),
   });
 
   const records = result.records as unknown as LongTermCustomerType[];
@@ -46,7 +41,7 @@ export const deleteMessages = async <
     ); */
   console.log(records);
   for (const record of records ) {
-    const slackResp = await new Promise(
+    await new Promise(
       (resolve) => setTimeout(
         ()=> resolve(
           slackApp.client.chat.delete({
@@ -56,7 +51,6 @@ export const deleteMessages = async <
           }),
         ), 1000,
       )).catch((err) => console.log(err.message));
-    console.log(slackResp);
   }
 
   return kintoneClient.record.updateRecords({
@@ -68,6 +62,7 @@ export const deleteMessages = async <
         record: {
           ['slackSentStatus' as T]: {value: 0},
           ['sentToSlackDate' as T]: {value: ''},
+          ['stopNotifyReason' as T]: {value: ''},
         },
       };
     }),

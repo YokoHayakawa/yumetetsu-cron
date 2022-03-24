@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import format from 'date-fns/format';
 import {subMonths} from 'date-fns';
 /**
@@ -7,20 +8,28 @@ import {subMonths} from 'date-fns';
  */
 export type SlackSentStatus = 0 | 1 | 2
 
-export const resolveQueryDate = (slackSentStatus: SlackSentStatus) => {
-  let result: string[] = [];
+export const resolveQueryDate = <T extends keyof LongTermCustomerType>(
+  slackSentStatus: SlackSentStatus,
+) => {
+  let result = '';
   switch (slackSentStatus) {
     case 0:
-      result = [`<= "${format(subMonths(new Date(), 3), 'yyyy-MM-dd')}"`];
+      /* This includes blank due dates */
+      result = [
+        `(${'追客可能時期' as T} != "" and ${'追客可能時期' as T} <= "${format(subMonths(new Date(), 3), 'yyyy-MM-dd')}")`,
+        // `(${'receptionDate' as T} = THIS_MONTH(17))`, todo Yearly
+      ].join(' or ');
       break;
     case 1:
       result = [
         `<= "${format(new Date(), 'yyyy-MM-dd')}"`,
         `> "${format(subMonths(new Date(), 3), 'yyyy-MM-dd')}"`,
-      ];
+      ].map((item) => `${'追客可能時期' as T} ${item}`)
+        .join(' and ');
   }
 
-  return result.map((item) => `追客可能時期 ${item}`);
+  console.log(result);
+  return result ? `(${result})` : '';
 };
 
 

@@ -18,7 +18,7 @@ const getLongTermCust = async <T extends keyof LongTermCustomerType>
     query:
     [
       `${'slackSentStatus' as T} <= "${slackSentStatus}"`,
-      ...queryDate,
+      queryDate,
       `${'stopNotifyReason' as T} = ""`,
     ].join(' and '),
   })
@@ -32,21 +32,6 @@ const getLongTermCust = async <T extends keyof LongTermCustomerType>
       };
     });
 };
-
-/* export const getPreRemindHankyo = () => {
-  return getLongTermCust(
-    format(subMonths(new Date(), 3), 'yyyy-MM-dd'),
-    0,
-  );
-};
-
-export const getActualRemindHankyo = () => {
-  return getLongTermCust(
-    format(new Date(), 'yyyy-MM-dd'),
-    1,
-  );
-};
- */
 
 export default getLongTermCust;
 

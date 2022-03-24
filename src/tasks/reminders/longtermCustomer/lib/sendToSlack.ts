@@ -2,8 +2,7 @@ import {Block, KnownBlock} from '@slack/bolt';
 import {slackApp} from '../../../../api/slack';
 import {resolveChannel} from '../../../../api/slack/helpers';
 import {globalInterval} from '../../../../config';
-import {logger} from '../../../../utils';
-import {getYearDiffFromToday} from '../../../../utils/dates';
+import {isSameMonthDay} from '../../../../utils/dates';
 import {SlackSentStatus} from '../helpers';
 import {
   actions,
@@ -13,7 +12,7 @@ import {
   mainContents,
   notesAndCancelReason} from './messageParts';
 
-import {markSuccess} from './updateLongTermCust';
+import {markSuccess} from './markSuccess';
 
 
 type FnMessageBlock = (
@@ -74,6 +73,28 @@ export default async (
   records: LongTermCustomerType[],
   slackSentStatus: SlackSentStatus,
 ) => {
+  for (const rec of records) {
+    const {
+      receptionDate,
+    } = rec;
+
+    // Requirement: Notify empty dueDate same month and day every year.
+    if (isSameMonthDay(receptionDate.value)) {
+      await new Promise(
+        (resolve) => setTimeout(
+          ()=> resolve(sendRecToSlack(rec, slackSentStatus)),
+          globalInterval,
+        ),
+      );
+    }
+  }
+};
+
+
+/* export default async (
+  records: LongTermCustomerType[],
+  slackSentStatus: SlackSentStatus,
+) => {
   const tasks = records.map((rec, idx) => {
     const {
       $id,
@@ -82,7 +103,7 @@ export default async (
       sentToSlackDate,
     } = rec;
 
-    /* Requirement: Notify empty dueDate every year. */
+    // Requirement: Notify empty dueDate every year.
     if (!dueDate.value) {
       const dateToCompare = sentToSlackDate.value || receptionDate.value;
       const diffInYears = getYearDiffFromToday(dateToCompare);
@@ -106,5 +127,6 @@ export default async (
   });
 
   return Promise.all(tasks);
-};
+}; */
+
 

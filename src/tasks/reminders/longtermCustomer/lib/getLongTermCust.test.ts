@@ -1,3 +1,4 @@
+
 import getLongTermCust from './getLongTermCust';
 
 describe('Hankyo', ()=>{
@@ -7,11 +8,12 @@ describe('Hankyo', ()=>{
     const records = result.records as LongTermCustomerType[];
 
     if (records.length > 0) {
-      records.forEach((record) => {
-        console.log(record.追客可能時期.value);
-      });
+      const dueDates = records
+        .map((record) => record.receptionDate.value)
+        .join(',');
+      console.log(dueDates);
     }
 
     expect(result).toHaveProperty('totalCount');
-  });
+  }, 10000);
 });
