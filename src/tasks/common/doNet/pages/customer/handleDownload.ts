@@ -7,6 +7,7 @@ import path from 'path';
 import {format} from 'date-fns';
 import {APP_IDS} from '../../../../../api/kintone';
 import iconv from 'iconv-lite';
+import {nanoid} from 'nanoid/non-secure';
 
 
 /**
@@ -42,7 +43,7 @@ export const handleDownload = async (page: Page) => {
     const filePath = path.join(
       dumpPath,
       format(new Date(), `${APP_IDS.customers}-yyyyMMdd-HHmmss`),
-    ) + '.csv';
+    ) + `-${nanoid(5)}.csv`;
 
     fs.writeFileSync(
       filePath,
