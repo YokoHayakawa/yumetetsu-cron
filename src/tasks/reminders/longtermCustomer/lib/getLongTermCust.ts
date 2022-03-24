@@ -18,8 +18,8 @@ const getLongTermCust = async <T extends keyof LongTermCustomerType>
     query:
     [
       `${'slackSentStatus' as T} <= "${slackSentStatus}"`,
-      queryDate,
       `${'stopNotifyReason' as T} = ""`,
+      queryDate,
     ].join(' and '),
   })
     .then((res) => ({...res, ok: true}))

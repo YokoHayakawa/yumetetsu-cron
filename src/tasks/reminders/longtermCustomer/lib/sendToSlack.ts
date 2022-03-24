@@ -13,6 +13,7 @@ import {
   notesAndCancelReason} from './messageParts';
 
 import {markSuccess} from './markSuccess';
+import {logger} from '../../../../utils';
 
 
 type FnMessageBlock = (
@@ -41,11 +42,18 @@ const sendRecToSlack = async (
 ) => {
   const {
     店舗名: storeName,
-    長期追客理由: dueDate,
+    追客可能時期: dueDate,
   } = rec;
 
+
   const isActualHankyoDate = slackSentStatus === 1 || dueDate.value;
+
   const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : '３ヶ月前です'}!`;
+  logger.info(`Evaluated header ${[textHeader,
+    isActualHankyoDate,
+    dueDate.value].join('--')
+  }`);
+
   const isDevEnvironment = process.env.ENVIRONMENT === 'dev';
 
   const resp = await slackApp.client.chat.postMessage({
@@ -73,13 +81,14 @@ export default async (
   records: LongTermCustomerType[],
   slackSentStatus: SlackSentStatus,
 ) => {
+  logger.info(`sendToSlack: received ${records.length} records.`);
   for (const rec of records) {
     const {
       receptionDate,
     } = rec;
 
     // Requirement: Notify empty dueDate same month and day every year.
-    if (isSameMonthDay(receptionDate.value)) {
+    if (slackSentStatus === 1 || isSameMonthDay(receptionDate.value)) {
       await new Promise(
         (resolve) => setTimeout(
           ()=> resolve(sendRecToSlack(rec, slackSentStatus)),
@@ -89,44 +98,3 @@ export default async (
     }
   }
 };
-
-
-/* export default async (
-  records: LongTermCustomerType[],
-  slackSentStatus: SlackSentStatus,
-) => {
-  const tasks = records.map((rec, idx) => {
-    const {
-      $id,
-      追客可能時期: dueDate,
-      receptionDate,
-      sentToSlackDate,
-    } = rec;
-
-    // Requirement: Notify empty dueDate every year.
-    if (!dueDate.value) {
-      const dateToCompare = sentToSlackDate.value || receptionDate.value;
-      const diffInYears = getYearDiffFromToday(dateToCompare);
-      logger.info(`Due date is empty.${[
-        $id.value, dateToCompare, diffInYears]
-        .join(', ')}`);
-
-      if (!diffInYears) {
-        return;
-      }
-    }
-
-    // Slack is generous in API calls even though it is generally free.
-    // However, rate limiters might kick in so I used a timed promise.
-    return new Promise(
-      (resolve) => setTimeout(
-        ()=> resolve(sendRecToSlack(rec, slackSentStatus)),
-        idx * globalInterval,
-      ),
-    );
-  });
-
-  return Promise.all(tasks);
-}; */
-
-

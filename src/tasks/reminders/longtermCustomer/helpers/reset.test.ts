@@ -9,7 +9,7 @@ import {deleteMessages, reset} from './reset';
 });
  */
 describe('Delete Messages', () => {
-  it('is successul', async ()=>{
+  it('is successfull', async ()=>{
     const result = await deleteMessages();
     expect(result).toMatchSnapshot();
   }, browserTimeOut);

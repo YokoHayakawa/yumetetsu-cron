@@ -15,10 +15,7 @@ export const resolveQueryDate = <T extends keyof LongTermCustomerType>(
   switch (slackSentStatus) {
     case 0:
       /* This includes blank due dates */
-      result = [
-        `(${'追客可能時期' as T} != "" and ${'追客可能時期' as T} <= "${format(subMonths(new Date(), 3), 'yyyy-MM-dd')}")`,
-        // `(${'receptionDate' as T} = THIS_MONTH(17))`, todo Yearly
-      ].join(' or ');
+      result = `${'追客可能時期' as T} <= "${format(subMonths(new Date(), 3), 'yyyy-MM-dd')}"`;
       break;
     case 1:
       result = [
@@ -28,8 +25,7 @@ export const resolveQueryDate = <T extends keyof LongTermCustomerType>(
         .join(' and ');
   }
 
-  console.log(result);
-  return result ? `(${result})` : '';
+  return result || `(${result})`;
 };
 
 
