@@ -1,3 +1,4 @@
+import {browserTimeOut} from '../../common/browser/config';
 import {remindOnLongtermCust} from './remindOnLongtermCust';
 
 describe('Remind On Long Term', () => {
@@ -6,5 +7,5 @@ describe('Remind On Long Term', () => {
 
     console.log(result);
     expect(result).toMatchSnapshot();
-  });
+  }, browserTimeOut);
 });

@@ -46,7 +46,7 @@ const sendRecToSlack = async (
   } = rec;
 
 
-  const isActualHankyoDate = slackSentStatus === 1 || dueDate.value;
+  const isActualHankyoDate = slackSentStatus === 1 || !dueDate.value;
 
   const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : '３ヶ月前です'}!`;
   logger.info(`Evaluated header ${[textHeader,
@@ -88,11 +88,13 @@ export default async (
       追客可能時期: dueDate,
     } = rec;
 
+
     if (
       slackSentStatus === 1 || // Notify on actual date
-      (slackSentStatus === 0 && dueDate.value) || // Notify 3 months before
+      (slackSentStatus === 0 && !!dueDate.value) || // Notify 3 months before
       isSameMonthDay(receptionDate.value) // Notify every year
     ) {
+      console.log('3months before?', slackSentStatus === 0 && !!dueDate.value);
       await new Promise(
         (resolve) => setTimeout(
           ()=> resolve(sendRecToSlack(rec, slackSentStatus)),
