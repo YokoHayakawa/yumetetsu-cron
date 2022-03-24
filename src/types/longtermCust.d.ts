@@ -6,6 +6,7 @@ declare namespace Yume.longtermCust {
     長期理由詳細: kintone.fieldTypes.MultiLineText;
     biko: kintone.fieldTypes.SingleLineText;
     reasonCancel: kintone.fieldTypes.SingleLineText;
+    stopNotifyReason: kintone.fieldTypes.SingleLineText;
     追客可能時期: kintone.fieldTypes.Date;
     phoneNum: kintone.fieldTypes.SingleLineText;
     担当者名: kintone.fieldTypes.SingleLineText;
@@ -16,11 +17,13 @@ declare namespace Yume.longtermCust {
     custId: kintone.fieldTypes.SingleLineText;
     店舗名: kintone.fieldTypes.SingleLineText;
     連絡事項: kintone.fieldTypes.MultiLineText;
+    slackDisplayName: kintone.fieldTypes.SingleLineText;
     '町名・番地': kintone.fieldTypes.SingleLineText;
     slackChannel: kintone.fieldTypes.SingleLineText;
     郵便番号: kintone.fieldTypes.SingleLineText;
     slackTS: kintone.fieldTypes.SingleLineText;
     mobileNum: kintone.fieldTypes.SingleLineText;
+    slackUserId: kintone.fieldTypes.SingleLineText;
     都道府県: kintone.fieldTypes.SingleLineText;
     sentToSlackDate: kintone.fieldTypes.Date;
     顧客名フリガナ: kintone.fieldTypes.SingleLineText;
