@@ -24,6 +24,9 @@ declare global {
       DO_NETWORK_USER: string,
       DO_NETWORK_PASSWORD: string,
 
+      REINS_USER?: string,
+      REINS_PASS?: string
+
       BROWSER_TYPE?: 'NORMAL' | 'HEADLESS',
       ENVIRONMENT?: 'dev' | 'prod',
       NODE_ENV: string,

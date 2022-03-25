@@ -1,6 +1,7 @@
 import puppeteer, {Browser} from 'puppeteer';
 import {logger} from '../../../utils';
 import {browserURL} from './config';
+import UserAgent from 'user-agents';
 
 // const isTest = process.env.NODE_ENV === 'test';
 
@@ -22,17 +23,34 @@ export const launchBrowser = () => {
       '--disable-gpu',
       '--disable-dev-shm-usage',
       '--no-sandbox',
-      '--disable-setuid-sandbox'],
+      '--disable-setuid-sandbox',
+    ],
   });
 };
 
-export const openBrowserPage = async () => {
+export const openBrowserPage = async (loadImages = true) => {
   logger.info('Opening page.');
   const browser = await launchBrowser();
   const page = await getPage(browser);
-  // eslint-disable-next-line max-len
-  await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36');
 
+  const newUserAgent = new UserAgent({
+    deviceCategory: 'desktop',
+  }).data.userAgent;
+
+  // eslint-disable-next-line max-len
+  await page.setUserAgent(newUserAgent);
+  logger.info(`Browser agent is ${newUserAgent}` );
+
+  if (!loadImages) {
+    await page.setRequestInterception(true);
+    page.on('request', (req) => {
+      if (req.resourceType() === 'image') {
+        req.abort();
+      } else {
+        req.continue();
+      }
+    });
+  }
   return page;
 };
 
