@@ -5,5 +5,6 @@ export const toKintone = async () => {
   const page = await openBrowserPage(false);
   await login(page);
   await gotoSearchProperty(page);
+
   return page;
 };

@@ -8,7 +8,7 @@ export const selectors = {
   tabs: '#__BVID__31',
 
   /* Page 売買検索条件入力 */
-  type1: '__BVID__2519',
+  propertyType1: '__BVID__2519',
 };
 
 export const URLs = {
