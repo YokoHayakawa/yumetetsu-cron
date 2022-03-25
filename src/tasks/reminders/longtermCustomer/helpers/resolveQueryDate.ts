@@ -20,7 +20,7 @@ export const resolveQueryDate = <T extends keyof LongTermCustomerType>(
     case 1:
       result = [
         `<= "${format(new Date(), 'yyyy-MM-dd')}"`,
-        `> "${format(subMonths(new Date(), 3), 'yyyy-MM-dd')}"`,
+        // `> "${format(subMonths(new Date(), 3), 'yyyy-MM-dd')}"`,
       ].map((item) => `${'追客可能時期' as T} ${item}`)
         .join(' and ');
   }
