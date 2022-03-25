@@ -48,7 +48,9 @@ export const handleUpload = async (
 ) => {
   logger.info(`Toggling key ${keyField}`);
   await page.waitForNetworkIdle();
-  await page.waitForSelector(`input[id^='${keyField}']`, {visible: true});
+  await page.waitForSelector(`input[id^='${keyField}']`, {
+    visible: true,
+  });
   await page.click(`input[id^='${keyField}']`);
 
   logger.info(`Start upload.`);

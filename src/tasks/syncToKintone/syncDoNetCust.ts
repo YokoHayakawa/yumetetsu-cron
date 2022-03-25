@@ -12,7 +12,21 @@ import {setCustForm} from '../common/doNet/pages/customer/setCustForm';
 
 import {format, subDays} from 'date-fns';
 import {handleDownload} from '../common/doNet/pages/customer/handleDownload';
+import {Browser} from 'puppeteer';
 
+export const handleFileWatcher = async (path: string, browser: Browser) => {
+  try {
+    const context = await browser.createIncognitoBrowserContext();
+    const newPage = await context.newPage();
+    newPage.setDefaultNavigationTimeout(0);
+    logger.info(`File ${path} has been added.`);
+    await uploadSingleCSV(newPage, APP_IDS.customers, 'custId', path);
+    await newPage.close();
+  } catch (e) {
+    notifyDev(`handleFileWatcher ${e}`);
+    browser.close();
+  }
+};
 
 export const syncDoNetCust = async (isFullSync = false) => {
   try {
@@ -30,15 +44,7 @@ export const syncDoNetCust = async (isFullSync = false) => {
     const uploadTasks : Promise<void>[] = [];
 
     watcher.on('add', (path)=>{
-      uploadTasks.push((async ()=>{
-        const context = await kintoneBrowser.createIncognitoBrowserContext();
-        const newPage = await context.newPage();
-        newPage.setDefaultNavigationTimeout(0);
-        logger.info(`File ${path} has been added.`);
-        await uploadSingleCSV(newPage, APP_IDS.customers, 'custId', path);
-        await newPage.close();
-      })(),
-      );
+      uploadTasks.push(handleFileWatcher(path, kintoneBrowser));
     });
 
     await login(page);
