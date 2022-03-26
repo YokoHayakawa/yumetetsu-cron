@@ -2,11 +2,12 @@ import {Page} from 'puppeteer';
 import {logger} from '../../../utils/logger';
 
 import {URLs, selectors} from './config';
+const {login: loginSel} = selectors;
 
 const goToLoginPage = async (page: Page) => {
   await page.goto(URLs.login, {waitUntil: 'networkidle2'});
-  await page.waitForSelector(selectors.btnLogin);
-  await page.click(selectors.btnLogin);
+  await page.waitForSelector(loginSel.btnLogin);
+  await page.click(loginSel.btnLogin);
   return page;
 };
 
@@ -17,10 +18,10 @@ const typeCredentials = async (page: Page) => {
   if (!(user && pass)) {
     throw new Error('Please define REINS credentials at .env file');
   }
-  await page.waitForSelector(selectors.txtUser, {visible: true});
-  await page.type(selectors.txtUser, user);
-  await page.type(selectors.txtPass, pass);
-  await page.click(selectors.chkLogin);
+  await page.waitForSelector(loginSel.txtUser, {visible: true});
+  await page.type(loginSel.txtUser, user);
+  await page.type(loginSel.txtPass, pass);
+  await page.click(loginSel.chkLogin);
   await page.click('button');
 };
 
