@@ -1,8 +1,6 @@
 /* eslint-disable max-len */
 
-import {el} from 'date-fns/locale';
 import {Page} from 'puppeteer';
-import {selectors} from '../../config';
 import {gotoSearchProperty} from '../gotoSearchProperty';
 
 enum PropType {
