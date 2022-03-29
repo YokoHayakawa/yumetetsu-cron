@@ -3,9 +3,10 @@ import {logger} from '../../../utils';
 import {browserURL} from './config';
 import UserAgent from 'user-agents';
 
-// const isTest = process.env.NODE_ENV === 'test';
-
-// const options = isTest ? optionsTest() : undefined;
+interface OpenBrowserParam {
+  loadImages : boolean,
+  slowMo: number
+}
 
 const getPage = async (browser: Browser) => {
   const pages = await browser.pages();
@@ -14,9 +15,12 @@ const getPage = async (browser: Browser) => {
 
 logger.info(`Running in ${process.env.NODE_ENV}`);
 
-export const launchBrowser = () => {
+export const launchBrowser = ({
+  slowMo = 0,
+}) => {
   logger.info(`Launching browser. `);
   return puppeteer.launch({
+    slowMo,
     defaultViewport: null,
     headless: process.env.BROWSER_TYPE === 'HEADLESS',
     args: [
@@ -28,9 +32,12 @@ export const launchBrowser = () => {
   });
 };
 
-export const openBrowserPage = async (loadImages = true) => {
+export const openBrowserPage = async (opt?: OpenBrowserParam) => {
   logger.info('Opening page.');
-  const browser = await launchBrowser();
+
+  const browser = await launchBrowser({
+    slowMo: opt?.slowMo,
+  });
   const page = await getPage(browser);
 
   const newUserAgent = new UserAgent({
@@ -41,7 +48,7 @@ export const openBrowserPage = async (loadImages = true) => {
   await page.setUserAgent(newUserAgent);
   logger.info(`Browser agent is ${newUserAgent}` );
 
-  if (!loadImages) {
+  if (!opt?.loadImages) {
     await page.setRequestInterception(true);
     page.on('request', (req) => {
       if (req.resourceType() === 'image') {

@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 
 import {Page} from 'puppeteer';
-import {gotoSearchProperty} from '../gotoSearchProperty';
 
 enum PropType {
   '売土地' = '01',
