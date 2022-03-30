@@ -1,6 +1,6 @@
 import {openMockBrowserPage} from '../../../browser';
 import {browserTimeOut} from '../../../browser/config';
-import {setFormSearchProperty} from './setFormSearchProperty';
+import {pressSearch, setFormSearchProperty} from './setFormSearchProperty';
 
 describe('Form', ()=>{
   it('is successfuly set', async ()=>{
@@ -13,6 +13,13 @@ describe('Form', ()=>{
     );
     page.browser().disconnect();
 
+    expect(page);
+  }, browserTimeOut);
+
+  it('is submitted', async () => {
+    const page = await openMockBrowserPage();
+    await pressSearch(page);
+    page.browser().disconnect();
     expect(page);
   }, browserTimeOut);
 });

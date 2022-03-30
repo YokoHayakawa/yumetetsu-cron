@@ -21,7 +21,6 @@ const isLastPage = async (page: Page) => {
 
 
 export const scrapeData = async (page: Page) =>{
-  await page.waitForNetworkIdle({idleTime: 100});
   const isWithRecord = await Promise.race([
     page.waitForXPath('//div[contains(text(),"検索結果")]').then(()=>false),
     page.waitForXPath('//ul[contains(@class,"pagination")]').then(()=> true),

@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 
 import {Page} from 'puppeteer';
+import {logger} from '../../../../../utils';
 
 
 enum PropType {
@@ -21,6 +22,18 @@ export interface FormValues {
   prefecture ?: string,
   city ?: string
 }
+
+export const pressSearch = async (page: Page) => {
+  await page.$x('//button[text()="検索"]')
+    .then(([searchButton]) => searchButton.click());
+  await page.waitForNetworkIdle();
+
+  await Promise.race([
+    page.waitForNavigation(),
+    page.$x('//footer/button[contains(text(),"OK")]')
+      .then(([button]) => button?.click()).catch(),
+  ]);
+};
 
 /**
  * Sets the form according to options
@@ -78,10 +91,7 @@ export const setFormSearchProperty = async (
     .then(([el])=>el.click());
 
   /* 検索ボタン */
-
-  await page.$x('//button[text()="検索"]')
-    .then(([searchButton]) => searchButton.click());
-  await page.waitForNavigation({waitUntil: 'networkidle2'});
+  await pressSearch(page);
 
   return page;
 };

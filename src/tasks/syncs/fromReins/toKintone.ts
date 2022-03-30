@@ -1,9 +1,8 @@
 import {openBrowserPage} from '../../common/browser';
 import {login, gotoSearchProperty} from '../../common/reins';
-import {scrapeData} from '../../common/reins/pages/searchProperty';
-import {
+import {scrapeData,
   setFormSearchProperty,
-} from '../../common/reins/pages/searchProperty/setFormSearchProperty';
+} from '../../common/reins/pages/searchProperty';
 import path from 'path';
 import {logger, saveCSV} from '../../../utils';
 import {uploadSingleCSV} from '../../common/kintone/uploadCSV';
