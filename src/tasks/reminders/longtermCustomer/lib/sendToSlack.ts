@@ -1,5 +1,5 @@
 import {Block, KnownBlock} from '@slack/bolt';
-import {slackApp} from '../../../../api/slack';
+import {slackClient} from '../../../../api/slack';
 import {resolveChannel} from '../../../../api/slack/helpers';
 import {globalInterval} from '../../../../config';
 import {isSameMonthDay} from '../../../../utils/dates';
@@ -56,7 +56,7 @@ const sendRecToSlack = async (
 
   const isDevEnvironment = process.env.ENVIRONMENT === 'dev';
 
-  const resp = await slackApp.client.chat.postMessage({
+  const resp = await slackClient().chat.postMessage({
     channel: resolveChannel(storeName.value),
     text: textHeader,
     blocks: messageBlock(rec, textHeader),

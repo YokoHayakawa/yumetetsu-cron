@@ -2,21 +2,7 @@ import fs from 'fs';
 import {logger} from './logger';
 import path from 'path';
 import {dumpPath} from './paths';
-
-/**
- *
- * Fix datetime of provided fields to match kintone format.
- *
- * Kintone format: yyyy-MM-dd HH:mm
- * @param path file path.
- * @param fields fields to fix
- * @todo
- * Lost the need of it as regex seems to be more intuitive than
- * converting csv to dataframe first.
- */
-export const fixCSVDateTime = (path: string, fields: string[]) => {
-  console.log(path, fields);
-};
+import iconv from 'iconv-lite';
 
 
 export const getCSVFiles = (dir: string, appId: string) => {
@@ -27,4 +13,13 @@ export const getCSVFiles = (dir: string, appId: string) => {
 
   logger.info(`Found ${result.length} csv files`);
   return result;
+};
+
+export const saveCSV = (filePath: string, data: string) => {
+  fs.writeFileSync(filePath, '');
+  const fd = fs.openSync( filePath, 'w');
+  const buff = iconv.encode( data, 'Shift_JIS' );
+
+  fs.writeSync( fd, buff);
+  fs.close(fd);
 };

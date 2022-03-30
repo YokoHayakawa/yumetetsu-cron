@@ -2,6 +2,7 @@
 
 import {Page} from 'puppeteer';
 
+
 enum PropType {
   '売土地' = '01',
   '売一戸建' = '02',
@@ -10,58 +11,77 @@ enum PropType {
   '売外一(住宅以外建物一部)' = '05'
 }
 
+type DateCoverage = '指定なし' | '３日以内' | '１週間以内' | '１ヶ月以内'
 
-interface FieldValues {
-  propertyType: keyof typeof PropType
+export interface FormValues {
+  propertyType: keyof typeof PropType,
+  oldOrNew ?: '指定なし' | '新築' | '中古',
+  registeredDate ?: DateCoverage,
+  updatedDate ?: DateCoverage,
+  prefecture ?: string,
+  city ?: string
 }
 
-
+/**
+ * Sets the form according to options
+ *
+ * @param page
+ * @param fieldValues
+ * @param fieldValues.propertyType 物件種別１
+ * @param fieldValues.oldOrNew 新築・中古区分
+ * @returns {Page} page
+ */
 export const setFormSearchProperty = async (
   page: Page,
-  fieldValues: FieldValues,
+  fieldValues: FormValues,
 ) =>{
   const {
     propertyType,
+    oldOrNew = '指定なし',
+    registeredDate = '３日以内',
+    updatedDate = '３日以内',
+    prefecture = '愛知県',
+    city= '豊橋市',
   } = fieldValues;
 
   await page.waitForNetworkIdle();
   await page.$x('//span[contains(text(), \'物件種別１\')]/parent::div/following-sibling::div/select')
-    .then((res) => res[0].select(PropType[propertyType]));
+    .then(([el]) => el.select(PropType[propertyType]));
 
 
   /* 新築・中古区分 */
-  await page.$x('//label[contains(text(), "中古")]')
-    .then((res) => res[0].click());
+  await page.$x(`//label[contains(text(), "${oldOrNew}")]`)
+    .then(([el]) => el.click());
 
   /* 所在地１ */
   await page.$x('//span[text()="都道府県名"]')
     .then(([mainLocation]) => mainLocation.$x('parent::div/following-sibling::div//input'))
-    .then(async ([pref, city]) => {
+    .then(async ([inputPref, inputCity]) => {
       /* 都道府県名 */
-
-      await pref.click({clickCount: 3});
+      await inputPref.click({clickCount: 3});
       await page.keyboard.press('Backspace');
-      await pref.type('愛知県', {delay: 100});
+      await inputPref.type(prefecture, {delay: 100});
       /* 所在地名１ */
-      await city.click({clickCount: 3});
+      await inputCity.click({clickCount: 3});
       await page.keyboard.press('Backspace');
-      await city.type('豊田市', {delay: 100});
+      await inputCity.type(city, {delay: 100});
     });
 
 
   /* 登録年月日 */
-  await page.$x('//span[text()="登録年月日"]/parent::div/following-sibling::div//label[text()="３日以内"]')
+  await page.$x(`//span[text()="登録年月日"]/parent::div/following-sibling::div//label[text()="${registeredDate}"]`)
     .then(([el]) => el.click());
 
 
   /* 変更年月日 */
-  await page.$x('//span[text()="変更年月日"]/parent::div/following-sibling::div//label[text()="３日以内"]')
+  await page.$x(`//span[text()="変更年月日"]/parent::div/following-sibling::div//label[text()="${updatedDate}"]`)
     .then(([el])=>el.click());
 
   /* 検索ボタン */
 
   await page.$x('//button[text()="検索"]')
     .then(([searchButton]) => searchButton.click());
+  await page.waitForNavigation({waitUntil: 'networkidle2'});
 
   return page;
 };

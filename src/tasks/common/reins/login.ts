@@ -29,5 +29,6 @@ const typeCredentials = async (page: Page) => {
 export const login = async (page: Page ) => {
   logger.info('Started login to REINS. ');
   await goToLoginPage(page);
+
   await typeCredentials(page);
 };

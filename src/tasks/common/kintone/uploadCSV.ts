@@ -69,13 +69,19 @@ const moveFileToArchive = (filePath: string) => {
   });
 };
 
+/**
+ * Uploads a single csv.
+ * @param page
+ * @param appId
+ * @param keyField
+ * @param file full filepath
+ */
 export const uploadSingleCSV = async (
   page: Page, appId: string, keyField = 'レコード番号', file: string,
 ) => {
   await goToImportPage(page, appId);
   await attachFile(page, file);
   await handleUpload(page, keyField);
-  moveFileToArchive(file);
 };
 
 /**
@@ -93,5 +99,6 @@ export const uploadCSV = async (
   const files = getCSVFiles(dumpPath, appId);
   for (const file of files) {
     await uploadSingleCSV(page, appId, keyField, file);
+    moveFileToArchive(file);
   }
 };

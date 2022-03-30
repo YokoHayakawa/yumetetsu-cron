@@ -12,4 +12,5 @@ export const kintoneClient = new KintoneRestAPIClient({
 export const APP_IDS = {
   'customers': '84',
   'longTermCustomers': '189',
+  'reins': 191,
 };

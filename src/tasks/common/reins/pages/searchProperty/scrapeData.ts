@@ -19,10 +19,19 @@ const isLastPage = async (page: Page) => {
     .then((cn)=> cn.toString().includes('disabled'));
 };
 
-export const scrapeData = async (page: Page) =>{
-  const scrapedData = [await getHeader(page)];
 
+export const scrapeData = async (page: Page) =>{
   await page.waitForNetworkIdle({idleTime: 100});
+  const isWithRecord = await Promise.race([
+    page.waitForXPath('//div[contains(text(),"検索結果")]').then(()=>false),
+    page.waitForXPath('//ul[contains(@class,"pagination")]').then(()=> true),
+  ]);
+
+  if (!isWithRecord) return;
+
+  const scrapedData = [await getHeader(page)];
+  console.log(scrapedData);
+
   scrapedData.push(await getBody(page));
 
   while (!(await isLastPage(page))) {

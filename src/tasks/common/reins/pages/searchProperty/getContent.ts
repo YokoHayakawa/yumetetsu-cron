@@ -10,8 +10,12 @@ const getValues = (grids: Element[], contentGrid: unknown) => {
       style?.includes(`grid-column: ${col}`);
     });
 
-    return (cell?.textContent || '-')
-      .replace('\n', ' '); // Remove ln as to conform to csv format.
+    const quotedStr = `"${(cell?.textContent || '-')
+      // .replace('\n', ' ')
+      .replace(/\s/g, ' ')
+    }"`;
+
+    return quotedStr; // Remove ln as to conform to csv format.
   })
     .join(',');
 };

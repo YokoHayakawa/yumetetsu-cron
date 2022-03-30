@@ -4,8 +4,8 @@ import {browserURL} from './config';
 import UserAgent from 'user-agents';
 
 interface OpenBrowserParam {
-  loadImages : boolean,
-  slowMo: number
+  loadImages?: boolean,
+  slowMo?: number
 }
 
 const getPage = async (browser: Browser) => {
@@ -23,18 +23,11 @@ export const launchBrowser = ({
     slowMo,
     defaultViewport: null,
     headless: process.env.BROWSER_TYPE === 'HEADLESS',
-    args: [
-      '--disable-gpu',
-      '--disable-dev-shm-usage',
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-    ],
   });
 };
 
 export const openBrowserPage = async (opt?: OpenBrowserParam) => {
   logger.info('Opening page.');
-
   const browser = await launchBrowser({
     slowMo: opt?.slowMo,
   });
@@ -48,7 +41,8 @@ export const openBrowserPage = async (opt?: OpenBrowserParam) => {
   await page.setUserAgent(newUserAgent);
   logger.info(`Browser agent is ${newUserAgent}` );
 
-  if (!opt?.loadImages) {
+  console.log(opt?.loadImages);
+  if (opt && !opt.loadImages) {
     await page.setRequestInterception(true);
     page.on('request', (req) => {
       if (req.resourceType() === 'image') {
@@ -70,7 +64,6 @@ export const openMockBrowserPage = async () => {
   logger.info('Opening mock browser page.');
   const browser = await puppeteer.connect({
     browserURL,
-    // browserWSEndpoint: 'ws://127.0.0.1:9222/devtools/browser/87ef8a6a-0405-4c36-821f-309ad007f026',
     defaultViewport: null});
   return getPage(browser);
 };

@@ -2,10 +2,9 @@
 require('dotenv').config();
 
 import cron from 'node-cron';
-import {appName} from './config';
 import {remindOnLongtermCust} from './tasks';
 import {syncDoNetCust} from './tasks/syncToKintone/syncDoNetCust';
-import {formattedTime, notifyDev} from './utils';
+
 
 const options = {
   scheduled: true,
@@ -37,4 +36,3 @@ cron.schedule('*/10 8-19 * * 1-6', () => syncDoNetCust());
  */
 // cron.schedule('*/5 * * * * *', ()=> notifyDev(formattedTime() + ': Alive'));
 
-notifyDev(`${formattedTime()} ${appName} started.`);

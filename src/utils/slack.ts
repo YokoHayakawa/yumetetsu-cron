@@ -1,9 +1,9 @@
 import {format} from 'date-fns';
-import {slackApp} from '../api/slack';
+import {slackClient} from '../api/slack';
 
-export const notifyDev = (message: string) => {
+export const notifyDev = async (message: string) => {
   console.log('Notifying dev.');
-  slackApp.client.chat.postMessage({
+  return await slackClient().chat.postMessage({
     channel: process.env.SLACK_CHANNEL_ID_DEV,
     text: message,
   });

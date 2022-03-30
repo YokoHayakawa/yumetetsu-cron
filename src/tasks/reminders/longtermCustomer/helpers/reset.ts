@@ -1,5 +1,5 @@
 import {APP_IDS, kintoneClient} from '../../../../api/kintone';
-import {slackApp} from '../../../../api/slack';
+
 
 export const reset = async <T extends keyof LongTermCustomerType>() => {
   const result = await kintoneClient.record.getRecords({
