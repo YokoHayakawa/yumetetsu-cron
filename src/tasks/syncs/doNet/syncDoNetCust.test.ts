@@ -1,4 +1,4 @@
-import {browserTimeOut} from '../common/browser/config';
+import {browserTimeOut} from '../../common/browser/config';
 import {syncDoNetCust} from './syncDoNetCust';
 
 describe('SyncCust', ()=> {

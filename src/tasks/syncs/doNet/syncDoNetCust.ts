@@ -1,17 +1,17 @@
-import {openBrowserPage} from '../common/browser';
-import {login} from '../common/doNet/login';
-import {navigateToCustPage} from '../common/doNet/pages/navigate';
+import {openBrowserPage} from '../../common/browser';
+import {login} from '../../common/doNet/login';
+import {navigateToCustPage} from '../../common/doNet/pages/navigate';
 import {
   downloadPerStore, selectStoreThenSearch,
-} from '../common/doNet/pages/customer/downloadPerStore';
-import {uploadSingleCSV} from '../common/kintone/uploadCSV';
-import {APP_IDS} from '../../api/kintone';
+} from '../../common/doNet/pages/customer/downloadPerStore';
+import {uploadSingleCSV} from '../../common/kintone/uploadCSV';
+import {APP_IDS} from '../../../api/kintone';
 import chokidar from 'chokidar';
-import {dumpPath, logger, notifyDev} from '../../utils';
-import {setCustForm} from '../common/doNet/pages/customer/setCustForm';
+import {dumpPath, logger, notifyDev} from '../../../utils';
+import {setCustForm} from '../../common/doNet/pages/customer/setCustForm';
 
 import {format, subDays} from 'date-fns';
-import {handleDownload} from '../common/doNet/pages/customer/handleDownload';
+import {handleDownload} from '../../common/doNet/pages/customer/handleDownload';
 import {Browser} from 'puppeteer';
 
 export const handleFileWatcher = async (path: string, browser: Browser) => {

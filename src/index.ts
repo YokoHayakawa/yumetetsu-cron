@@ -3,7 +3,7 @@ require('dotenv').config();
 
 import cron from 'node-cron';
 import {remindOnLongtermCust} from './tasks';
-import {syncDoNetCust} from './tasks/syncToKintone/syncDoNetCust';
+import {syncDoNetCust} from './tasks/syncs/';
 
 
 const options = {

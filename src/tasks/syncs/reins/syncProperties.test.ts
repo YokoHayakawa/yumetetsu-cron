@@ -1,8 +1,8 @@
 import {browserTimeOut} from '../../common/browser/config';
-import {toKintone} from './toKintone';
+import {syncProperties} from './syncProperties';
 
 describe('REINS Properties', ()=>{
   it('Synced to kintone', async ()=>{
-    await toKintone();
+    await syncProperties();
   }, browserTimeOut);
 });

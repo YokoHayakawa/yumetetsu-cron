@@ -23,7 +23,7 @@ const syncData = async (page: Page, result: string) => {
 };
 
 
-export const toKintone = async () => {
+export const syncProperties = async () => {
   const kintonePage = await openBrowserPage({
     loadImages: false,
     slowMo: 0,
