@@ -58,8 +58,8 @@ export const setFormSearchProperty = async (
   } = fieldValues;
 
   await page.waitForNetworkIdle();
-  await page.$x('//span[contains(text(), \'物件種別１\')]/parent::div/following-sibling::div/select')
-    .then(([el]) => el.select(PropType[propertyType]));
+  await page.waitForXPath('//span[contains(text(), \'物件種別１\')]/parent::div/following-sibling::div/select')
+    .then((el) => el?.select(PropType[propertyType]));
 
 
   /* 新築・中古区分 */
