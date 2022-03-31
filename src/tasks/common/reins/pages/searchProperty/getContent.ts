@@ -5,6 +5,7 @@ import {ContentGrid, contentGrid} from './contentGrid';
 const getValues = (
   grids: Element[],
   contentGrid: unknown,
+  isHeader: unknown,
 ) => {
   return (contentGrid as ContentGrid).map(([row, col, type]) => {
     const extractNumber = (str: string) => {
@@ -20,18 +21,23 @@ const getValues = (
 
     let strValue = cell?.textContent || '-';
 
-    switch (type) {
-      case 'num':
-        strValue = extractNumber(strValue);
-        break;
-      case 'date': {
+    // Resolve cell type
+    if (!isHeader) {
+      switch (type) {
+        case 'num':
+          strValue = extractNumber(strValue);
+          break;
+        case 'date': {
         /* TODO  Improve regex*/
-        const extractedDates = strValue.match(/\d+[年月]/g);
-        if (extractedDates?.length === 3) {
-          const [yr, _, month] = extractedDates;
-          strValue = [yr, month].join('-').replace(/[年月]/g, '') + '-1';
+          const extractedDates = strValue.match(/\d+[年月]/g);
+          if (extractedDates?.length === 3) {
+            const [yr, _, month] = extractedDates;
+            strValue = [yr, month].join('-').replace(/[年月]/g, '') + '-1';
+          } else {
+            strValue = '';
+          }
+          break;
         }
-        break;
       }
     }
 
@@ -58,7 +64,7 @@ export const getHeader = async (page: Page) =>{
     '.p-table-header > div',
     getValues,
     contentGrid,
-    'test',
+    true,
   );
 };
 
