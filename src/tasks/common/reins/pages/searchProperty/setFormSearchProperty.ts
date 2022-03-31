@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 
-import {Page} from 'puppeteer';
+import {HTTPResponse, Page} from 'puppeteer';
 import {logger} from '../../../../../utils';
 
 
@@ -25,14 +25,25 @@ export interface FormValues {
 
 export const pressSearch = async (page: Page) => {
   await page.$x('//button[text()="検索"]')
-    .then(([searchButton]) => searchButton.click());
-  await page.waitForNetworkIdle();
+    .then(([searchButton]) => searchButton?.click());
 
-  await Promise.race([
-    page.waitForNavigation(),
+  const handleResponse = (response: HTTPResponse)=>{
+    return response.url().includes('getInitDataFromKnskJyukn');
+  };
+
+
+  const bukkenResp = await Promise.race([
+    page.waitForResponse(handleResponse),
     page.$x('//footer/button[contains(text(),"OK")]')
-      .then(([button]) => button?.click()).catch(),
+      .then(([button]) => button?.click())
+      .then(()=>{
+        return page.waitForResponse(handleResponse);
+      }),
   ]);
+
+  const dataObject = await bukkenResp.json();
+
+  console.log('success', dataObject?.bkknKnskListResultData1?.knskResultListKnsu);
 };
 
 /**
@@ -92,6 +103,7 @@ export const setFormSearchProperty = async (
 
   /* 検索ボタン */
   await pressSearch(page);
+
 
   return page;
 };

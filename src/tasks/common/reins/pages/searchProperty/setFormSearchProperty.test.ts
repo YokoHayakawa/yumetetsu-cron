@@ -15,8 +15,10 @@ describe('Form', ()=>{
 
     expect(page);
   }, browserTimeOut);
+});
 
-  it('is submitted', async () => {
+describe('submit', ()=>{
+  it('Pressed', async ()=>{
     const page = await openMockBrowserPage();
     await pressSearch(page);
     page.browser().disconnect();

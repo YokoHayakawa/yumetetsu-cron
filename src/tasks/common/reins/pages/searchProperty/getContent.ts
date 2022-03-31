@@ -1,21 +1,42 @@
 import {Page} from 'puppeteer';
-import {contentGrid} from './contentGrid';
+import {ContentGrid, contentGrid} from './contentGrid';
 
 
-const getValues = (grids: Element[], contentGrid: unknown) => {
-  return (contentGrid as number[][]).map(([row, col]) => {
+const getValues = (
+  grids: Element[],
+  contentGrid: unknown,
+) => {
+  return (contentGrid as ContentGrid).map(([row, col, type]) => {
+    const extractNumber = (str: string) => {
+      return str.match(/(\d+)(?:\.(\d+))?/g)
+        ?.join('') || '0';
+    };
+
     const cell = grids.find((grid) => {
       const style = grid.getAttribute('style');
       return style?.includes(`grid-row-start: ${row}`) &&
       style?.includes(`grid-column: ${col}`);
     });
 
-    const quotedStr = `"${(cell?.textContent || '-')
-      // .replace('\n', ' ')
-      .replace(/\s/g, ' ')
-    }"`;
+    let strValue = cell?.textContent || '-';
 
-    return quotedStr; // Remove ln as to conform to csv format.
+    switch (type) {
+      case 'num':
+        strValue = extractNumber(strValue);
+        break;
+      case 'date': {
+        /* TODO  Improve regex*/
+        const extractedDates = strValue.match(/\d+[年月]/g);
+        if (extractedDates?.length === 3) {
+          const [yr, _, month] = extractedDates;
+          strValue = [yr, month].join('-').replace(/[年月]/g, '') + '-1';
+        }
+        break;
+      }
+    }
+
+    // Remove ln, and add quotes as to conform to csv format.
+    return `"${strValue.replace(/\s/g, ' ')}"`;
   })
     .join(',');
 };
@@ -37,6 +58,7 @@ export const getHeader = async (page: Page) =>{
     '.p-table-header > div',
     getValues,
     contentGrid,
+    'test',
   );
 };
 
