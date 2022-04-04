@@ -26,6 +26,8 @@
     "@types/node": "^17.0.21",
     "@types/node-cron": "^3.0.1",
     "@types/npmlog": "^4.1.4",
+    "@types/rimraf": "^3.0.2",
+    "@types/rmfr": "^2.0.1",
     "@types/user-agents": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
@@ -59,6 +61,7 @@
     "node-cron": "^3.0.0",
     "puppeteer": "^13.5.0",
     "regenerator-runtime": "^0.13.9",
+    "rmfr": "^2.0.0",
     "user-agents": "^1.0.966",
     "winston": "^3.6.0"
   }

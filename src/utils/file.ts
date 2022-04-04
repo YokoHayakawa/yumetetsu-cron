@@ -3,7 +3,7 @@ import {logger} from './logger';
 import path from 'path';
 import {dumpPath} from './paths';
 import iconv from 'iconv-lite';
-
+import rmfr from 'rmfr';
 
 export const getCSVFiles = (dir: string, appId: string) => {
   const result = fs.readdirSync(dir)
@@ -22,4 +22,8 @@ export const saveCSV = (filePath: string, data: string) => {
 
   fs.writeSync( fd, buff);
   fs.close(fd);
+};
+
+export const deleteFile = (path: string) => {
+  return rmfr(path);
 };
