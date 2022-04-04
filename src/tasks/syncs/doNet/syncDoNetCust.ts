@@ -33,13 +33,14 @@ export const handleFileWatcher = async (path: string, browser: Browser) => {
 };
 
 export const syncDoNetCust = async (isFullSync = false) => {
+  const watcher = chokidar.watch(dumpPath, {
+    ignored: /(^|[/\\])\../, // ignore dotfiles
+    persistent: true,
+    depth: 0,
+  });
   try {
     /** File watcher */
-    const watcher = chokidar.watch(dumpPath, {
-      ignored: /(^|[/\\])\../, // ignore dotfiles
-      persistent: true,
-      depth: 0,
-    });
+
 
     process.setMaxListeners(20);
     const page = await openBrowserPage();
@@ -80,6 +81,7 @@ export const syncDoNetCust = async (isFullSync = false) => {
     await kintoneBrowser.close();
     await watcher.close();
   } catch (error: any) {
+    await watcher.close();
     notifyDev(`Error with syncDoNetCust. ${error.message}`);
   }
 };
