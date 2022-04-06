@@ -1,1 +1,1 @@
-export * from './reminders/longtermCustomer/remindOnLongtermCust';
+export * from './syncs';
