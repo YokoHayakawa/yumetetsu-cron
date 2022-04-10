@@ -9,8 +9,9 @@ describe('Hankyo', ()=>{
 
     if (records.length > 0) {
       const dueDates = records
-        .map((record) => record.receptionDate.value)
-        .join(',');
+        .filter((record) => Boolean(record.追客可能時期.value))
+        .map((record) => record.追客可能時期.value)
+        .join('\n');
       console.log(dueDates);
     }
 

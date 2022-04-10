@@ -13,7 +13,7 @@ import {
   notesAndCancelReason} from './messageParts';
 
 import {markSuccess} from './markSuccess';
-import {logger} from '../../../../utils';
+import {logger, isLessThan3MonthsFromToday} from '../../../../utils';
 
 
 type FnMessageBlock = (
@@ -46,7 +46,10 @@ const sendRecToSlack = async (
   } = rec;
 
 
-  const isActualHankyoDate = slackSentStatus === 1 || !dueDate.value;
+  const isActualHankyoDate = (
+    slackSentStatus === 0 && isLessThan3MonthsFromToday(dueDate.value)
+  ) ||
+  (slackSentStatus === 1 || !dueDate.value);
 
   const textHeader = `追客可能時期${isActualHankyoDate ? 'となりました' : '３ヶ月前です'}!`;
   logger.info(`Evaluated header ${[textHeader,
